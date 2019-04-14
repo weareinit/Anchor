@@ -1,17 +1,20 @@
 import React,{Component} from 'react';
 
-class Dashboard extends Component{
+import Navbar from '../../components/navbar';
+
+class Statistics extends Component{
     constructor(props){
         super(props)
-
     }
+
     render(){
         return(
             <div>
-                <h1>Dashboard Page</h1>
+                <Navbar />
+                <h1>Statistics page</h1>
             </div>
         )
     }
 }
 
-export default Dashboard;
+export default Statistics

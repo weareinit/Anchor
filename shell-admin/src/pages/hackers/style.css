@@ -1,0 +1,28 @@
+.hackersContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+}
+.hackerOuter{
+    padding-top:70px;
+}
+
+.hackerInput{
+    width:80%;
+    margin-left: 5%;
+    padding: .5em;
+    border-radius:10px;
+    border: none;
+    outline-style: none;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    font-family: "Montserrat", sans-serif;
+    font-size: 100%;
+    color: white;
+    font-weight: 500;
+    margin-top:10px;
+}
+
+.hackerInput::placeholder{
+    color:white
+}

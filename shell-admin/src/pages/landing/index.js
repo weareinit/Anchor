@@ -12,7 +12,7 @@ class Landing extends Component{
         super(props)
 
         this.state = {
-            password: ''
+            password: null
         }
     }
 
@@ -28,15 +28,12 @@ class Landing extends Component{
         const {password} = this.state;
 
         try{
-            console.log(SERVER_URL)
-           let {data} = await axios.post('http://35c58f01.ngrok.io/token',{password:password});
+           let {data} = await axios.post('http://35c58f01.ngrok.io/token',{password});
+           
            const {token} = data.data
-           console.log(token)
-          
-
            localStorage.setItem("token",token);
 
-           this.props.history.push('/dashboard');
+           this.props.history.push('/hackers');
 
         }catch(e){
             alert('wrong password');
