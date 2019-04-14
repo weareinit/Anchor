@@ -2,27 +2,25 @@
     width: 25em;
     background-color:  rgba(206, 188, 143, 0.4);
     height: 100%;
-    border: solid black 2px;
     border-radius: 10px;
-    padding-left: 15px;
-    padding-bottom: 15px;
-    box-shadow: 2px 2px grey;
+    box-shadow: 3px 3px rgba(0, 0, 0, 0.5);
+    padding: 15px;
     margin: 15px;
 }
 
 .hackerContainer p{
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .hackerContainer button {
     border: none;
     outline-style: none;
-    border-radius: 30px;
+    border-radius: 10px;
     padding: 10px;
     color: black;
     font-weight: 900;
-    background-color: rgba(0, 0, 0, 0.5) !important;
-    font-size: 18px;
+    background-color: rgba(0, 0, 0, 0.3) !important;
+    font-size: 15px;
     margin-top: 5%;
 }
 

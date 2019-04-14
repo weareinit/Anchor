@@ -6,7 +6,7 @@ import './style.css'
 const modalStyles = {
     content:{
         'font-size': 20,
-        backgroundColor: 'rgba(206, 188, 143, .8)',
+        backgroundColor: 'rgba(206, 188, 143, .9)',
         border: '2px solid black',
     },
 }
@@ -41,6 +41,7 @@ class Hacker extends Component{
                 <p>• Application Status: {applicationStatus}</p>
                 <button onClick={this.openModal}>More Info</button>
                 <button className="acceptBtn">Accept</button>
+                <button className="acceptBtn">Check In</button>
                 <Modal 
                 isOpen = {this.state.modalOpen}
                 onRequestClose = {this.cloaseModal}

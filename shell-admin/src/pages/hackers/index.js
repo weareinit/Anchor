@@ -6,7 +6,7 @@ import './style.css';
 
 import Navbar from '../../components/navbar'
 
-let SERVER_URL = "http://35c58f01.ngrok.io"
+const SERVER_URL = "http://35c58f01.ngrok.io"
 
 class Hackers extends Component{
     constructor(props){
@@ -60,7 +60,7 @@ class Hackers extends Component{
 
     render(){
         const{hackers} = this.state
-        
+
         return(
             hackers ?
             <div>
@@ -72,6 +72,8 @@ class Hackers extends Component{
                         className="hackerInput" 
                         type='text'
                         />
+                        <h2>{hackers.length} Hackers Found</h2>
+                        <button className="allBtn">Accept All</button>
                         <div className="hackersContainer">
                             {hackers.map(hacker => {
                                 return <Hacker data = {hacker} />
@@ -80,8 +82,8 @@ class Hackers extends Component{
                     </div>
             </div>
             :
-            <div>
-                <h1>Loading</h1>
+            <div className="hackerOuter">
+                <h1 id="loading">Loading</h1>
             </div>
 
         )

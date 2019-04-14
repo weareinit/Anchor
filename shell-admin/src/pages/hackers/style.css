@@ -5,7 +5,7 @@
     
 }
 .hackerOuter{
-    padding-top:70px;
+    padding-top:80px;
 }
 
 .hackerInput{
@@ -20,9 +20,31 @@
     font-size: 100%;
     color: white;
     font-weight: 500;
-    margin-top:10px;
+    margin-top:15px;
 }
 
 .hackerInput::placeholder{
     color:white
+}
+
+.hackerOuter h2{
+    margin-left: 5%;
+    margin-top:20px;
+}
+
+.allBtn{
+    border: none;
+    outline-style: none;
+    border-radius: 10px;
+    padding: 10px;
+    color: black;
+    font-weight: 900;
+    background-color: rgba(0, 0, 0, 0.3) !important;
+    font-size: 15px;
+    margin-left: 5%;
+    margin-bottom: 10px;
+}
+
+#loading{
+    margin-left: 5%;
 }

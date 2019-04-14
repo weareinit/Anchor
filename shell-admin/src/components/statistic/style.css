@@ -1,0 +1,16 @@
+.statisticContainer{
+    text-align: center;
+}
+
+.statisticContainer p {
+    font-size: 30px;
+}
+
+@media only screen and (min-width: 640px){
+    .statisticContainer h2 {
+        font-size: 30px;
+    }
+    .statisticContainer p {
+        font-size: 40px;
+    }
+}
