@@ -9,6 +9,8 @@ body{
     justify-content: space-around;
     align-items: center;
     height: 100vh;
+    background-image: url('../../assets/Sand.svg');
+    background-size: cover; 
 }
 
 .landingContainer .logo{
@@ -57,6 +59,33 @@ body{
     margin-top: 5%;
 }
 
+.backgroundObjects{
+    display: block;
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+    height: 100%;
+    width: 100%
+}
+
+.decor{
+    position: absolute;
+    pointer-events: none;
+    z-index: 1;
+}
+
+#starfish{
+    width: 130px;
+    top: 30px;
+    left: 30px;
+}
+
+#sandals{
+    width: 150px;
+    right: 30px;
+    top: 65%;
+}
+
 
 @media only screen and (max-width: 1024px){
     .landingContainer .logo{
@@ -89,5 +118,9 @@ body{
         background-color: rgba(206, 188, 143, 0.4);
         border-radius: 30px;
         width: 80vw;
+    }
+
+    #starfish{
+        display: none;
     }
 }

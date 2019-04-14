@@ -36,7 +36,7 @@ class Hacker extends Component{
             <div className="hackerContainer">
                 <h1>{firstName} {lastName}</h1>
                 <p>• Email: {email}</p>
-                <p>• School: {schoolName}</p>
+                {/* <p>• School: {schoolName}</p> */}
                 {/* <p>Location: Miami,Fl</p> */}
                 <p>• Application Status: {applicationStatus}</p>
                 <button onClick={this.openModal}>More Info</button>

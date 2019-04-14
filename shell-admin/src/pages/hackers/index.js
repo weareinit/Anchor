@@ -6,7 +6,7 @@ import './style.css';
 
 import Navbar from '../../components/navbar'
 
-const SERVER_URL = "http://35c58f01.ngrok.io"
+const SERVER_URL = "http://be46bb0d.ngrok.io"
 
 class Hackers extends Component{
     constructor(props){
@@ -63,7 +63,7 @@ class Hackers extends Component{
 
         return(
             hackers ?
-            <div>
+            <div className="background">
                 <Navbar />
                     <div className="hackerOuter">
                         <input 
@@ -83,7 +83,7 @@ class Hackers extends Component{
             </div>
             :
             <div className="hackerOuter">
-                <h1 id="loading">Loading</h1>
+                <h1 id="loading">Loading...</h1>
             </div>
 
         )

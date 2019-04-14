@@ -24,7 +24,7 @@
       height: '100%'
     },
     bmMenu: {
-      background: '#373a47',
+      background: '#9e8d7d',
       padding: '2.5em 1.5em 0',
       fontSize: '1.15em'
     },
@@ -33,13 +33,28 @@
     },
     bmItemList: {
       color: '#b8b7ad',
-      padding: '0.8em'
+      padding: '0.8em',
+      display:'flex',
+      alignItems: 'center',
+      flexDirection: 'column',
+      justifyContent:'center',
+      marginTop: -50
     },
     bmItem: {
-      margin: 15
+      margin: 15,
+      color: 'black',
+      textDecoration: 'none',
+      marginTop:30,
+      marginBottom:30,
+      fontSize:25,
+      fontFamily:"Montserrat, sans-serif",
+      // background: '#9e8d7d'
     },
     bmOverlay: {
       background: 'rgba(0, 0, 0, 0.3)'
+    },
+    shell: {
+      width: 60
     }
   }
 

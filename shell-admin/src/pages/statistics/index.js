@@ -7,7 +7,7 @@ import {numApplied,numNotApplied,numApplicants} from '../../utils/registrationSt
 
 import './style.css';
 
-const SERVER_URL = "http://35c58f01.ngrok.io"
+const SERVER_URL = "http://be46bb0d.ngrok.io"
 
 class Statistics extends Component{
     constructor(props){
@@ -64,7 +64,7 @@ class Statistics extends Component{
             </div>
             :
             <div className="statisticsOuter">
-                <h1>Loading</h1>
+                <h1>Loading...</h1>
             </div>
         )
     }

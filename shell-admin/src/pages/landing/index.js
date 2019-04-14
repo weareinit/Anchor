@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
-import Logo from '../../assets/shellLogo.svg'
+import Logo from '../../assets/shellLogo.svg';
+import Starfish from '../../assets/Starfish.svg';
+import Sandals from '../../assets/Sandals.svg';
 
 import './style.css';
 
-const SERVER_URL = "http://35c58f01.ngrok.io"
+const SERVER_URL = "http://be46bb0d.ngrok.io"
 
 class Landing extends Component{
     constructor(props){
@@ -36,13 +38,18 @@ class Landing extends Component{
            this.props.history.push('/hackers');
 
         }catch(e){
-            alert('wrong password');
+            alert('Invalid Password');
         }
       }
 
     render(){
         return(
-            <div className = "landingContainer">
+            <div>
+                <div className="backgroundObjects">
+                    <img id="starfish" className="decor" src={Starfish}/>
+                    <img id="sandals" className="decor" src={Sandals} />
+                </div>
+                <div className = "landingContainer">
                 <img className = "logo" src={Logo}/>
                 <div className="passwordBox">
                     <h2>PASSWORD</h2>
@@ -52,7 +59,9 @@ class Landing extends Component{
                     />
                 </div>
                 <button className="landingBtn" onClick={this.submit}>Submit</button>
+                </div>
             </div>
+            
         )
     }
 }
