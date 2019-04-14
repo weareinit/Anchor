@@ -15,21 +15,20 @@ class Hackers extends Component{
         this.state = {
             applicants: null,
             hackers: null,
-            query: null,
         }
     }
 
     async componentDidMount(){
         try{
         const token = await localStorage.getItem("token");
-        let config = {
+        const config = {
             headers: {
                 'Authorization':'Bearer '+ token
             }
         }
 
-        let {data} = await axios.get(SERVER_URL+"/application",config);
-        let {applicants} = data.data
+        const {data} = await axios.get(SERVER_URL+"/application",config);
+        const {applicants} = data.data
 
         this.setState({applicants,hackers:applicants})
        
@@ -38,7 +37,6 @@ class Hackers extends Component{
             await localStorage.setItem("token",null)
             this.props.history.push('/')
         }
-
     }
 
     hackerSearch = (event) => { 
@@ -62,6 +60,7 @@ class Hackers extends Component{
 
     render(){
         const{hackers} = this.state
+        
         return(
             hackers ?
             <div>

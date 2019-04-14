@@ -28,7 +28,7 @@ class Landing extends Component{
         const {password} = this.state;
 
         try{
-           let {data} = await axios.post('http://35c58f01.ngrok.io/token',{password});
+           let {data} = await axios.post(SERVER_URL+'/token',{password});
            
            const {token} = data.data
            localStorage.setItem("token",token);
@@ -46,7 +46,10 @@ class Landing extends Component{
                 <img className = "logo" src={Logo}/>
                 <div className="passwordBox">
                     <h2>PASSWORD</h2>
-                    <input type="text" value={this.state.password} onChange ={this.handleInputChange('password')}/>
+                    <input type="text" 
+                    value={this.state.password} 
+                    onChange ={this.handleInputChange('password')}
+                    />
                 </div>
                 <button className="landingBtn" onClick={this.submit}>Submit</button>
             </div>
