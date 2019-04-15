@@ -1,5 +1,8 @@
 .statisticContainer{
     text-align: center;
+    margin:30px;
+    width: 12em;
+    /* background-color: grey; */
 }
 
 .statisticContainer p {

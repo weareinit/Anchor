@@ -7,7 +7,7 @@ import Sandals from '../../assets/Sandals.svg';
 
 import './style.css';
 
-const SERVER_URL = "http://be46bb0d.ngrok.io"
+const SERVER_URL = "http://e2797737.ngrok.io"
 
 class Landing extends Component{
     constructor(props){

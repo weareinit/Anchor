@@ -6,7 +6,7 @@ import './style.css';
 
 import Navbar from '../../components/navbar'
 
-const SERVER_URL = "http://be46bb0d.ngrok.io"
+const SERVER_URL = "http://e2797737.ngrok.io"
 
 class Hackers extends Component{
     constructor(props){

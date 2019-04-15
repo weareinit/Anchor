@@ -74,4 +74,30 @@ const numFemales = (arr) => {
     return count;
 }
 
-module.exports = {numApplicants,numConfirmed,numAccepted,numApplied,numNotApplied,numFemales,numMales}
+const makeObj = (key,value) => {
+    return {key:key,value:value};
+}
+
+const getStatistics = (arr) => {
+    let applicants = numApplicants(arr);
+    let confirmed = numConfirmed(arr);
+    let applied = numApplied(arr);
+    let notApplied = numNotApplied(arr);
+    let accepted = numAccepted(arr);
+    let males = numMales(arr);
+    let females = numFemales(arr);
+
+    let applicantsObj = makeObj("Applicants",applicants)
+    let confirmedObj = makeObj("Confirmed",confirmed);
+    let appliedObj = makeObj("Applied",applied);
+    let notAppliedObj = makeObj("Not Applied",notApplied);
+    let acceptedObj = makeObj("Accepted",accepted);
+    let malesObj = makeObj("Males",males);
+    let femaleObj = makeObj("Females",females);
+
+    let data = [applicantsObj,confirmedObj,appliedObj,notAppliedObj,acceptedObj,malesObj,femaleObj]
+
+    return data;
+}
+
+module.exports = {getStatistics}

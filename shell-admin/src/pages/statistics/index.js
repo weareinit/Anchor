@@ -3,22 +3,18 @@ import axios from 'axios';
 
 import Navbar from '../../components/navbar';
 import Statistic from '../../components/statistic';
-import {numApplied,numNotApplied,numApplicants} from '../../utils/registrationStatistics';
+import {getStatistics} from '../../utils/registrationStatistics';
 
 import './style.css';
 
-const SERVER_URL = "http://be46bb0d.ngrok.io"
+const SERVER_URL = "http://e2797737.ngrok.io"
 
 class Statistics extends Component{
     constructor(props){
         super(props)
 
         this.state = {
-            applicants: null,
-            confirmed: null,
-            applied: null,
-            notApplied: null,
-            done: false
+            statistics: null,
         }
     }
 
@@ -34,11 +30,11 @@ class Statistics extends Component{
         const {data} = await axios.get(SERVER_URL+"/application",config);
         const {applicants} = data.data
 
-        const notApplied = numNotApplied(applicants);
+        const statistics = await getStatistics(applicants);
 
-        this.setState({done:true,notApplied})
+        this.setState({statistics})
 
-        console.log(notApplied);
+        console.log(this.state.statistics);
        
         }catch(e){
             console.log(e)
@@ -49,17 +45,20 @@ class Statistics extends Component{
     }
 
     render(){
-        const{done,notApplied} = this.state
+        const{statistics} = this.state
 
         return(
-            done ?
+            statistics ?
             <div>
                 <Navbar />
                 <div className="statisticsOuter">
                     <h1>Registration Statistics</h1>
                 </div>
                 <div className='statisticsContainer'>
-                    <Statistic name= "Not Applied" value = {notApplied}/>
+                    {statistics.map(stat => {
+                        return <Statistic name = {stat.key} value = {stat.value} />
+                    })}
+                    {/* <Statistic name= "Not Applied" value = {notApplied}/> */}
                 </div>
             </div>
             :
