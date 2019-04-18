@@ -1,6 +1,8 @@
 import React,{Component} from 'react';
 import Modal from 'react-modal';
 
+import Admin from '../../services/admin';
+
 import './style.css'
 
 const modalStyles = {
@@ -32,6 +34,14 @@ class Hacker extends Component{
         this.setState({modalOpen:false})
     }
 
+    accept = async () => {
+        const{history,data} = this.props;
+        const {email} = data;
+
+        await Admin.acceptHacker(email,history);
+        
+    }
+
     render(){
         const{firstName,lastName,email,schoolName, applicationStatus,dob,
               gender,github,linkedIn,graduationYear,levelOfStudy,major,needReimbursement,
@@ -44,7 +54,7 @@ class Hacker extends Component{
                 {/* <p>Location: Miami,Fl</p> */}
                 <p>• Application Status: {applicationStatus}</p>
                 <button onClick={this.openModal}>More Info</button>
-                <button style={disabledStyle} className="acceptBtn">Accept</button>
+                <button onClick={this.accept} style={disabledStyle} className="acceptBtn">Accept</button>
                 <button className="acceptBtn">Check In</button>
                 <Modal 
                 isOpen = {this.state.modalOpen}

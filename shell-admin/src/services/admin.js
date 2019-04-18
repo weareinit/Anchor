@@ -34,12 +34,14 @@ const acceptHacker = async (email,history) => {
             headers: {
                 'Authorization':'Bearer '+ token
             },
-            body: email
         }
-
-        await axios.put(SERVER_URL + '/admin/acceptOne',config);
+        console.log('sending request');
+        await axios.put(SERVER_URL + "/admin/acceptOne",{email},config);
+        alert('Accepted hacker');
+        console.log('sent request');
 
     }catch(e){
+        console.log(e);
         authFailure(history);
     }
 }

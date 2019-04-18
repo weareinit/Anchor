@@ -53,6 +53,7 @@ class Hackers extends Component{
 
     render(){
         const{hackers} = this.state;
+        const{history} = this.props;
 
         return(
             hackers ?
@@ -69,7 +70,7 @@ class Hackers extends Component{
                         <button className="allBtn">Accept All</button>
                         <div className="hackersContainer">
                             {hackers.map(hacker => {
-                                return <Hacker data = {hacker} />
+                                return <Hacker history={history} data = {hacker} />
                             })}
                         </div>
                     </div>
