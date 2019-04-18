@@ -1,13 +1,14 @@
 import React,{Component} from 'react';
-import axios from 'axios';
 
 import Navbar from '../../components/navbar';
 import Statistic from '../../components/statistic';
 import {getStatistics} from '../../utils/registrationStatistics';
 
+import Admin from '../../services/admin';
+
 import './style.css';
 
-const SERVER_URL = "http://e2797737.ngrok.io"
+import authFailure from '../../utils/auth';
 
 class Statistics extends Component{
     constructor(props){
@@ -19,33 +20,22 @@ class Statistics extends Component{
     }
 
     async componentDidMount(){
-        try{
-        const token = await localStorage.getItem("token");
-        const config = {
-            headers: {
-                'Authorization':'Bearer '+ token
-            }
-        }
+        const{history} = this.props;
 
-        const {data} = await axios.get(SERVER_URL+"/application",config);
-        const {applicants} = data.data
+        try{
+        const applicants = await Admin.getApplicants();
 
         const statistics = await getStatistics(applicants);
 
         this.setState({statistics})
-
-        console.log(this.state.statistics);
        
         }catch(e){
-            console.log(e)
-            alert('Unauthorized, please login')
-            await localStorage.setItem("token",null)
-            this.props.history.push('/')
+            authFailure(history);
         }
     }
 
     render(){
-        const{statistics} = this.state
+        const{statistics} = this.state;
 
         return(
             statistics ?
@@ -65,8 +55,8 @@ class Statistics extends Component{
             <div className="statisticsOuter">
                 <h1>Loading...</h1>
             </div>
-        )
+        );
     }
 }
 
-export default Statistics
+export default Statistics;

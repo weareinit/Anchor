@@ -4,9 +4,10 @@ import axios from 'axios';
 import Hacker from '../../components/hacker';
 import './style.css';
 
-import Navbar from '../../components/navbar'
+import Navbar from '../../components/navbar';
 
-const SERVER_URL = "http://e2797737.ngrok.io"
+import authFailure from '../../utils/auth';
+import Admin from '../../services/admin';
 
 class Hackers extends Component{
     constructor(props){
@@ -19,29 +20,21 @@ class Hackers extends Component{
     }
 
     async componentDidMount(){
+        const{history} = this.props;
+        
         try{
-        const token = await localStorage.getItem("token");
-        const config = {
-            headers: {
-                'Authorization':'Bearer '+ token
-            }
-        }
-
-        const {data} = await axios.get(SERVER_URL+"/application",config);
-        const {applicants} = data.data
+        const applicants = await Admin.getApplicants();
 
         this.setState({applicants,hackers:applicants})
        
         }catch(e){
-            alert('Unauthorized, please login')
-            await localStorage.setItem("token",null)
-            this.props.history.push('/')
+            authFailure(history);
         }
     }
 
     hackerSearch = (event) => { 
-       const{value} = event.target
-       const{applicants} = this.state
+       const{value} = event.target;
+       const{applicants} = this.state;
        let arr = [];
 
         applicants.map(hacker => {
@@ -53,13 +46,13 @@ class Hackers extends Component{
                     break;
                 }
             }
-        })
+        });
 
-        this.setState({hackers:arr})
+        this.setState({hackers:arr});
     }
 
     render(){
-        const{hackers} = this.state
+        const{hackers} = this.state;
 
         return(
             hackers ?
@@ -86,7 +79,7 @@ class Hackers extends Component{
                 <h1 id="loading">Loading...</h1>
             </div>
 
-        )
+        );
     }
 }
 

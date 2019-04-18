@@ -1,5 +1,5 @@
 const numApplicants = (arr) => {
-    return arr.length
+    return arr.length;
 }
 
 const numConfirmed = (arr) => {
@@ -75,7 +75,7 @@ const numFemales = (arr) => {
 }
 
 const makeObj = (key,value) => {
-    return {key:key,value:value};
+    return {key,value};
 }
 
 const getStatistics = (arr) => {

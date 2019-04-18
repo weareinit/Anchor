@@ -5,9 +5,9 @@ import Logo from '../../assets/shellLogo.svg';
 import Starfish from '../../assets/Starfish.svg';
 import Sandals from '../../assets/Sandals.svg';
 
-import './style.css';
+import Admin from '../../services/admin';
 
-const SERVER_URL = "http://e2797737.ngrok.io"
+import './style.css';
 
 class Landing extends Component{
     constructor(props){
@@ -28,18 +28,9 @@ class Landing extends Component{
 
       submit = async () => {
         const {password} = this.state;
+        const{history} = this.props;
 
-        try{
-           let {data} = await axios.post(SERVER_URL+'/token',{password});
-           
-           const {token} = data.data
-           localStorage.setItem("token",token);
-
-           this.props.history.push('/hackers');
-
-        }catch(e){
-            alert('Invalid Password');
-        }
+        await Admin.login(password,history);
       }
 
     render(){
@@ -62,8 +53,8 @@ class Landing extends Component{
                 </div>
             </div>
             
-        )
+        );
     }
 }
 
-export default Landing
+export default Landing;

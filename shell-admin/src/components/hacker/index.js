@@ -11,6 +11,10 @@ const modalStyles = {
     },
 }
 
+const disabledStyle = {
+    backgroundColor: 'rgba(0, 0, 0, 0.8)'
+}
+
 class Hacker extends Component{
     constructor(props){
         super(props)
@@ -40,7 +44,7 @@ class Hacker extends Component{
                 {/* <p>Location: Miami,Fl</p> */}
                 <p>• Application Status: {applicationStatus}</p>
                 <button onClick={this.openModal}>More Info</button>
-                <button className="acceptBtn">Accept</button>
+                <button style={disabledStyle} className="acceptBtn">Accept</button>
                 <button className="acceptBtn">Check In</button>
                 <Modal 
                 isOpen = {this.state.modalOpen}
@@ -64,7 +68,7 @@ class Hacker extends Component{
                     <p>• LinkedIn: {linkedIn}</p>
                 </Modal>
             </div>
-        )
+        );
     }
 }
 

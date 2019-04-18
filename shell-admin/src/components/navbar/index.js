@@ -3,6 +3,8 @@ import React,{Component,Fragment} from 'react';
 import {slide as Menu} from 'react-burger-menu';
 import Shell from '../../assets/Shell.png'
 
+import Admin from '../../services/admin';
+
 import styles from './style';
 
 class Navbar extends Component{
@@ -11,16 +13,10 @@ class Navbar extends Component{
     }
     
     logout = async () => {
-        try{
-            await localStorage.setItem("token",null);
-
-            this.props.history.push('/');
-
-        }catch(e){
-            console.log(e)
-        }
+        const{history} = this.props;
+        
+        Admin.logout(history);
     }
-
     
     render(){
        

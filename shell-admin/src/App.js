@@ -1,7 +1,8 @@
+import "./env";
 import React, { Component } from 'react';
 import './App.css';
 
-import {Switch,BrowserRouter as Router,Route} from 'react-router-dom';
+import {BrowserRouter as Router,Route} from 'react-router-dom';
 
 import Landing from './pages/landing';
 import hackers from './pages/hackers';
@@ -20,3 +21,8 @@ class App extends Component {
 }
 
 export default App;
+
+
+/**
+ New page for reminders, live page, form for push notifications
+ */
