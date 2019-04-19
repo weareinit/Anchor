@@ -1,3 +1,7 @@
+/** 
+ * lots of utility functions to get statistics from database
+*/
+
 const numApplicants = (arr) => {
     return arr.length;
 }
@@ -78,6 +82,9 @@ const makeObj = (key,value) => {
     return {key,value};
 }
 
+/** 
+ * returns an array of objects with a name and amount per statistic
+*/
 const getStatistics = (arr) => {
     let applicants = numApplicants(arr);
     let confirmed = numConfirmed(arr);

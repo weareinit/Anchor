@@ -32,6 +32,10 @@ class Hackers extends Component{
         }
     }
 
+    /*
+     changes hacker state to hold array of applicants whose match with some field
+     in the search query
+    */
     hackerSearch = (event) => { 
        const{value} = event.target;
        const{applicants} = this.state;

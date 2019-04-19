@@ -38,14 +38,20 @@ class Hacker extends Component{
         const{history,data} = this.props;
         const {email} = data;
 
-        await Admin.acceptHacker(email,history);
-        
+        await Admin.acceptHacker(email,history);   
+    }
+
+    checkIn = async () => {
+        const{history,data} = this.props;
+        const{shellID} = data;
+
+        await Admin.checkIn(shellID,history);
     }
 
     render(){
         const{firstName,lastName,email,schoolName, applicationStatus,dob,
               gender,github,linkedIn,graduationYear,levelOfStudy,major,needReimbursement,
-              race,shirtSize,phoneNumber} = this.props.data
+              race,shirtSize,phoneNumber,checkIn} = this.props.data
         return(
             <div className="hackerContainer">
                 <h1>{firstName} {lastName}</h1>
@@ -55,7 +61,7 @@ class Hacker extends Component{
                 <p>• Application Status: {applicationStatus}</p>
                 <button onClick={this.openModal}>More Info</button>
                 <button onClick={this.accept} style={disabledStyle} className="acceptBtn">Accept</button>
-                <button className="acceptBtn">Check In</button>
+                <button onClick={this.checkIn} className="acceptBtn">Check In</button>
                 <Modal 
                 isOpen = {this.state.modalOpen}
                 onRequestClose = {this.cloaseModal}
@@ -66,6 +72,7 @@ class Hacker extends Component{
                     <p>• Email: {email}</p>
                     <p>• School: {schoolName}</p>
                     <p>• Major: {major}</p>
+                    <p>• Checked In: {checkIn ? 'Yes':'No'}</p>
                     <p>• Graduation Year: {graduationYear}</p>
                     <p>• Level of Study: {levelOfStudy}</p>
                     <p>• Date of Birth: {dob}</p>
