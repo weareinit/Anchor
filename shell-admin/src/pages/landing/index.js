@@ -40,16 +40,17 @@ class Landing extends Component{
                     <img id="starfish" className="decor" src={Starfish}/>
                     <img id="sandals" className="decor" src={Sandals} />
                 </div>
-                <div className = "landingContainer">
-                <img className = "logo" src={Logo}/>
-                <div className="passwordBox">
-                    <h2>PASSWORD</h2>
-                    <input type="text" 
-                    value={this.state.password} 
-                    onChange ={this.handleInputChange('password')}
-                    />
-                </div>
-                <button className="landingBtn" onClick={this.submit}>Submit</button>
+                    <div className = "landingContainer">
+                        <img className = "logo" src={Logo}/>
+                        <div className="passwordBox">
+                            <h2>PASSWORD</h2>
+                            <input type="text" 
+                            value={this.state.password} 
+                            onChange ={this.handleInputChange('password')}
+                            type = "password"
+                            />
+                        </div>
+                    <button className="landingBtn" onClick={this.submit}>Submit</button>
                 </div>
             </div>
             

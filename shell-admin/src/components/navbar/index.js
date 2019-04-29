@@ -25,6 +25,7 @@ class Navbar extends Component{
                 <img style = {styles.shell} src={Shell}/>
                 <a id="home" className="menu-item" href="/hackers">Hackers</a>
                 <a id="statistics" className="menu-item" href="/statistics">Statistics</a>
+                <a id="reminders" className="menu-item" href="/reminders">Reminders</a>
                 <a id="contact" className="menu-item" href="/live">Live</a>
                 <a onClick={this.logout} className="menu-item" href="">Logout</a>
             </Menu>

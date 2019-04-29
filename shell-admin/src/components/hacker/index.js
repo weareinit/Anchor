@@ -22,7 +22,7 @@ class Hacker extends Component{
         super(props)
 
         this.state = {
-            modalOpen: false
+            modalOpen: false,
         }
     }
 
@@ -38,7 +38,9 @@ class Hacker extends Component{
         const{history,data} = this.props;
         const {email} = data;
 
-        await Admin.acceptHacker(email,history);   
+        await Admin.acceptHacker(email,history);
+        
+
     }
 
     checkIn = async () => {
@@ -46,12 +48,15 @@ class Hacker extends Component{
         const{shellID} = data;
 
         await Admin.checkIn(shellID,history);
+
     }
 
     render(){
+
         const{firstName,lastName,email,schoolName, applicationStatus,dob,
               gender,github,linkedIn,graduationYear,levelOfStudy,major,needReimbursement,
               race,shirtSize,phoneNumber,checkIn} = this.props.data
+
         return(
             <div className="hackerContainer">
                 <h1>{firstName} {lastName}</h1>

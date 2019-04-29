@@ -1,5 +1,5 @@
 /** 
- * lots of utility functions to get statistics from database
+ * DEPRECATED
 */
 
 const numApplicants = (arr) => {

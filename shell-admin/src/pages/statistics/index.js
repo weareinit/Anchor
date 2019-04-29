@@ -2,13 +2,9 @@ import React,{Component} from 'react';
 
 import Navbar from '../../components/navbar';
 import Statistic from '../../components/statistic';
-import {getStatistics} from '../../utils/registrationStatistics';
-
 import Admin from '../../services/admin';
 
 import './style.css';
-
-import authFailure from '../../utils/auth';
 
 class Statistics extends Component{
     constructor(props){
@@ -23,14 +19,12 @@ class Statistics extends Component{
         const{history} = this.props;
 
         try{
-        const applicants = await Admin.getApplicants();
-
-        const statistics = await getStatistics(applicants);
+        const statistics = await Admin.getStatistics(history);
 
         this.setState({statistics})
        
         }catch(e){
-            authFailure(history);
+            console.log(e);
         }
     }
 
@@ -48,7 +42,6 @@ class Statistics extends Component{
                     {statistics.map(stat => {
                         return <Statistic name = {stat.key} value = {stat.value} />
                     })}
-                    {/* <Statistic name= "Not Applied" value = {notApplied}/> */}
                 </div>
             </div>
             :

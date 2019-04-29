@@ -7,6 +7,7 @@ import {BrowserRouter as Router,Route} from 'react-router-dom';
 import Landing from './pages/landing';
 import hackers from './pages/hackers';
 import Statistics from './pages/statistics'
+import Reminders from './pages/reminders';
 
 class App extends Component {
   render() {
@@ -15,6 +16,7 @@ class App extends Component {
           <Route exact path = "/" component={Landing} />
           <Route exact path = '/hackers' component={hackers} />
           <Route exact path = '/statistics' component = {Statistics} />
+          <Route exact path = '/reminders' component = {Reminders} />
       </Router>
     );
   }

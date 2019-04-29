@@ -1,5 +1,5 @@
 import React,{Component,Fragment} from 'react';
-import axios from 'axios';
+import ReactPaginate from 'react-paginate';
 
 import Hacker from '../../components/hacker';
 import './style.css';
@@ -15,7 +15,10 @@ class Hackers extends Component{
 
         this.state = {
             applicants: null,
-            hackers: null,
+            q: '',
+            page: 0,
+            overallPages: null,
+            count: null
         }
     }
 
@@ -23,9 +26,10 @@ class Hackers extends Component{
         const{history} = this.props;
         
         try{
-        const applicants = await Admin.getApplicants();
+        const response = await Admin.getApplicants(0,null,history);
+        const{applicants,overallPages,count} = response
 
-        this.setState({applicants,hackers:applicants})
+        this.setState({count,overallPages,applicants})
        
         }catch(e){
             authFailure(history);
@@ -36,47 +40,78 @@ class Hackers extends Component{
      changes hacker state to hold array of applicants whose match with some field
      in the search query
     */
-    hackerSearch = (event) => { 
-       const{value} = event.target;
-       const{applicants} = this.state;
-       let arr = [];
+    hackerSearch = async () => { 
+       const{q} = this.state;
 
-        applicants.map(hacker => {
-            for(let key in hacker){
-                let hackerVal = hacker[key]
+       try{
+           const response = await await Admin.getApplicants(0,q);
+           const{applicants,overallPages,count} = response
 
-                if(hackerVal && String(hackerVal).toLowerCase().includes(String(value).toLowerCase())){
-                    arr.push(hacker)
-                    break;
-                }
-            }
-        });
+        this.setState({count,overallPages,applicants})
 
-        this.setState({hackers:arr});
+       }catch(e){
+           alert('No hackers meet search criteria');
+       }
+       
     }
 
+    handlePageClick = async data => {
+        const{history} = this.props;
+        const{selected} = data;
+        const{q} = this.state;
+
+        const response = await Admin.getApplicants(selected,q,history);
+        const{applicants} = response
+
+        this.setState({applicants})
+        console.log(this.state.applicants)
+    }
+
+    handleInputChange(property) {
+        return e => {
+          this.setState({
+            [property]: e.target.value
+          });
+        };
+      }
+
     render(){
-        const{hackers} = this.state;
+        const{applicants,overallPages,count} = this.state;
         const{history} = this.props;
 
         return(
-            hackers ?
-            <div className="background">
+            applicants ?
+            <div>
                 <Navbar />
                     <div className="hackerOuter">
                         <input 
-                        onChange = {this.hackerSearch} 
+                        onChange = {this.handleInputChange('q')} 
                         placeholder="Search for hacker" 
                         className="hackerInput" 
                         type='text'
                         />
-                        <h2>{hackers.length} Hackers Found</h2>
+                        <br />
+                        <button onClick = {this.hackerSearch} className="searchBtn">Search</button>
+                        <h2>{count} Hackers Found</h2>
                         <button className="allBtn">Accept All</button>
                         <div className="hackersContainer">
-                            {hackers.map(hacker => {
+                            {applicants.map(hacker => {
                                 return <Hacker history={history} data = {hacker} />
                             })}
                         </div>
+                        <ReactPaginate
+                        previousLabel={'previous'}
+                        nextLabel={'next'}
+                        breakLabel={'...'}
+                        breakClassName={'break-me'}
+                        pageCount={overallPages}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={5}
+                        onPageChange={this.handlePageClick}
+                        containerClassName={'react-paginate'}
+                        subContainerClassName={'pages pagination'}
+                        activeClassName={'active'}
+                        />
                     </div>
             </div>
             :
