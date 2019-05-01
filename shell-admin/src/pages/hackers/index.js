@@ -32,7 +32,7 @@ class Hackers extends Component{
         this.setState({count,overallPages,applicants})
        
         }catch(e){
-            authFailure(history);
+            console.log(e);
         }
     }
 
@@ -42,15 +42,16 @@ class Hackers extends Component{
     */
     hackerSearch = async () => { 
        const{q} = this.state;
+       const{history} = this.props;
 
        try{
-           const response = await await Admin.getApplicants(0,q);
+           const response = await await Admin.getApplicants(0,q,history);
            const{applicants,overallPages,count} = response
 
         this.setState({count,overallPages,applicants})
 
        }catch(e){
-           alert('No hackers meet search criteria');
+           console.log(e);
        }
        
     }

@@ -44,11 +44,10 @@
       margin: 15,
       color: 'black',
       textDecoration: 'none',
-      marginTop:30,
-      marginBottom:30,
+      marginTop:20,
+      marginBottom:20,
       fontSize:25,
       fontFamily:"Montserrat, sans-serif",
-      // background: '#9e8d7d'
     },
     bmOverlay: {
       background: 'rgba(0, 0, 0, 0.3)'

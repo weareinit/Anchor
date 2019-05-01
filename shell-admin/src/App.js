@@ -8,6 +8,7 @@ import Landing from './pages/landing';
 import hackers from './pages/hackers';
 import Statistics from './pages/statistics'
 import Reminders from './pages/reminders';
+import Notifications from './pages/notifications';
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
           <Route exact path = '/hackers' component={hackers} />
           <Route exact path = '/statistics' component = {Statistics} />
           <Route exact path = '/reminders' component = {Reminders} />
+          <Route exact path = '/notifications' component = {Notifications} />
       </Router>
     );
   }

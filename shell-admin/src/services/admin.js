@@ -98,7 +98,10 @@ const getApplicants = async (page,q,history) => {
 
         return {applicants,overallPages,count};
     }catch(e){
-        authFailure(history);
+        String(e).includes("401") ?
+        authFailure(history) 
+        :
+        alert('No Hackers found');
     }
     
 }
