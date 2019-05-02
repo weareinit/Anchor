@@ -1,10 +1,11 @@
 import React,{Component} from 'react';
 
+import './style.css';
+
 import Navbar from '../../components/navbar';
 import Statistic from '../../components/statistic';
-import Admin from '../../services/admin';
 
-import './style.css';
+import Admin from '../../services/admin';
 
 class Statistics extends Component{
     constructor(props){
@@ -15,6 +16,9 @@ class Statistics extends Component{
         }
     }
 
+    /**
+     * Calls statistics service
+     */
     async componentDidMount(){
         const{history} = this.props;
 

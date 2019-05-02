@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
-import axios from 'axios';
+
+import './style.css';
 
 import Logo from '../../assets/shellLogo.svg';
 import Starfish from '../../assets/Starfish.svg';
 import Sandals from '../../assets/Sandals.svg';
 
 import Admin from '../../services/admin';
-
-import './style.css';
 
 class Landing extends Component{
     constructor(props){
@@ -26,6 +25,9 @@ class Landing extends Component{
         };
       }
 
+      /**
+       * Calls login service
+       */
       submit = async () => {
         const {password} = this.state;
         const{history} = this.props;

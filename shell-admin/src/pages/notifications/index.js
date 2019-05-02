@@ -7,7 +7,38 @@ import './style.css';
 class Notifications extends Component{
     constructor(props){
         super(props);
+
+        this.state = {
+            subject: null,
+            body: null,
+            tag: null
+        }
     }
+
+    handleInputChange(property) {
+        return e => {
+          this.setState({
+            [property]: e.target.value
+          });
+        };
+      }
+
+      /**
+       * In the works
+       */
+      handleClick = () => {
+          const{subject,body,tag} = this.state;
+
+        try{
+            if(!body || !subject || !tag)
+                throw('Please fill out rest of form')
+
+          console.log(body);
+
+        }catch(e){
+            alert(e);
+        }
+      }
 
     render(){
         return(
@@ -19,17 +50,17 @@ class Notifications extends Component{
                 <div className="notificationsContainer">
                     <div className="notification">
                         <h2>Subject Line</h2>
-                        <input type="text" />
+                        <input  onChange={this.handleInputChange('subject')} type="text" />
                     </div>
                     <div className="notification">
                         <h2>Body</h2>
-                        <textarea rows="4" cols="40"/>
+                        <textarea onChange={this.handleInputChange('body')} rows="4" cols="40"/>
                     </div>
                     <div className="notification">
                         <h2>Tag</h2>
-                        <input type="text" />
+                        <input onChange={this.handleInputChange('tag')} type="text" />
                     </div>
-                    <button id="notificationBtn">Send</button>
+                    <button onClick={this.handleClick} id="notificationBtn">Send</button>
                 </div>
                 
             </div>

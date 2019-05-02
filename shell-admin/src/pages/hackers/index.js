@@ -1,12 +1,11 @@
 import React,{Component,Fragment} from 'react';
 import ReactPaginate from 'react-paginate';
 
-import Hacker from '../../components/hacker';
 import './style.css';
 
+import Hacker from '../../components/hacker';
 import Navbar from '../../components/navbar';
 
-import authFailure from '../../utils/auth';
 import Admin from '../../services/admin';
 
 class Hackers extends Component{
@@ -22,23 +21,25 @@ class Hackers extends Component{
         }
     }
 
+    /**
+     * Initially calls applicants service with page 0 and no query
+     */
     async componentDidMount(){
         const{history} = this.props;
         
         try{
         const response = await Admin.getApplicants(0,null,history);
-        const{applicants,overallPages,count} = response
+        const{applicants,overallPages,count} = response;
 
-        this.setState({count,overallPages,applicants})
+        this.setState({count,overallPages,applicants});
        
         }catch(e){
             console.log(e);
         }
     }
 
-    /*
-     changes hacker state to hold array of applicants whose match with some field
-     in the search query
+   /**
+    * Calls applicants service with a query string
     */
     hackerSearch = async () => { 
        const{q} = this.state;
@@ -48,7 +49,7 @@ class Hackers extends Component{
            const response = await await Admin.getApplicants(0,q,history);
            const{applicants,overallPages,count} = response
 
-        this.setState({count,overallPages,applicants})
+        this.setState({count,overallPages,applicants,page:0})
 
        }catch(e){
            console.log(e);
@@ -56,6 +57,10 @@ class Hackers extends Component{
        
     }
 
+    /**
+     * Calls applicants service with page number
+     * @param {data} data - Value from react-paginate
+     */
     handlePageClick = async data => {
         const{history} = this.props;
         const{selected} = data;
@@ -85,14 +90,17 @@ class Hackers extends Component{
             <div>
                 <Navbar />
                     <div className="hackerOuter">
-                        <input 
-                        onChange = {this.handleInputChange('q')} 
-                        placeholder="Search for hacker" 
-                        className="hackerInput" 
-                        type='text'
-                        />
+                            <input 
+                            onChange = {this.handleInputChange('q')} 
+                            placeholder="Search for hacker" 
+                            className="hackerInput" 
+                            type='text'
+                            />
                         <br />
-                        <button onClick = {this.hackerSearch} className="searchBtn">Search</button>
+                        <div className="filters">
+                            <button onClick = {this.hackerSearch} className="searchBtn">Search</button>
+                            {/* <label><input id="accepted" type="checkbox"/> Accepted</label> */}
+                        </div>
                         <h2>{count} Hackers Found</h2>
                         <button className="allBtn">Accept All</button>
                         <div className="hackersContainer">

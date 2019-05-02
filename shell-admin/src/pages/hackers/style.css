@@ -55,7 +55,6 @@
     background-color: rgba(0, 0, 0, 0.3) !important;
     font-size: 15px;
     margin-left: 5%;
-    margin-top: 10px;
 }
 
 #loading{
@@ -90,4 +89,17 @@
 
 .react-paginate li:hover {
     background-color: lightgray;
+ }
+ .filters{
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+ }
+
+ #accepted{
+    border: 0.1em solid #000;
+    border-radius: 0.2em;
+    margin-left: 10px;
+    width: .8em;
+    height: .8em;
  }

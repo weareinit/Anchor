@@ -1,8 +1,8 @@
 import React,{Component} from 'react';
 
-import NavBar from '../../components/navbar';
-
 import './style.css';
+
+import NavBar from '../../components/navbar';
 
 class Reminders extends Component{
     constructor(props){

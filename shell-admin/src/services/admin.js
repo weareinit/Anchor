@@ -1,10 +1,14 @@
 import axios from 'axios';
+
 import authFailure from '../utils/auth';
+
 const SERVER_URL = 'http://localhost:3000';
 
-/** 
- * returns token from backend if provided correct password
-*/
+/**
+ * Returns token from backend if provided correct password
+ * @param {String} password - Given password 
+ * @param {Object} history - History prop from react router
+ */
 const login = async (password,history) => {
     try{
         let {data} = await axios.post(SERVER_URL+'/token',{password});
@@ -19,9 +23,10 @@ const login = async (password,history) => {
      }
 }
 
-/** 
- * removes token from localstorage
-*/
+/**
+ * Removes token from local storage and routes to landing page
+ * @param {Object} history -History prop from react router
+ */
 const logout = async (history) => {
     try{
         await localStorage.setItem("token",null);
@@ -33,9 +38,11 @@ const logout = async (history) => {
     }
 }
 
-/** 
- * accepts a hacker based on email
-*/
+/**
+ * Accepts a hacker based on email
+ * @param {String} email - Hacker email
+ * @param {Object} history - History prop from react router
+ */
 const acceptHacker = async (email,history) => {
     try{
         const token = await localStorage.getItem("token");
@@ -57,9 +64,11 @@ const acceptHacker = async (email,history) => {
     }
 }
 
-/** 
- * checks in a hacker based on shellID
-*/
+/**
+ * Checks in a hacker based on shellID
+ * @param {String} shellID - ShellID of hacker 
+ * @param {Object} history - History prop from react router
+ */
 const checkIn = async (shellID,history) => {
     try{
         const token = await localStorage.getItem("token");
@@ -77,9 +86,12 @@ const checkIn = async (shellID,history) => {
     }
 }
 
-/** 
- * returns all applicants from database
-*/
+/**
+ * Returns all applicants from database
+ * @param {Number} page - Page number
+ * @param {String} q - Query string for search
+ * @param {Object} history - History prop from react router
+ */
 const getApplicants = async (page,q,history) => {
     try{
         const token = await localStorage.getItem("token");
@@ -99,13 +111,16 @@ const getApplicants = async (page,q,history) => {
         return {applicants,overallPages,count};
     }catch(e){
         String(e).includes("401") ?
-        authFailure(history) 
-        :
+        authFailure(history) :
         alert('No Hackers found');
     }
     
 }
 
+/**
+ * Gets registration statistics from API
+ * @param {Object} history - History prop from react-router
+ */
 const getStatistics = async (history) => {
     const makeObj = (key,value) => {
         return {key,value};
