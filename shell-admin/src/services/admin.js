@@ -1,8 +1,28 @@
 import axios from 'axios';
+import jwt from 'jsonwebtoken';
 
 import authFailure from '../utils/auth';
 
 const SERVER_URL = 'http://localhost:3000';
+
+const admin = axios.create({baseURL: SERVER_URL});
+
+/**
+ * Verifies that the user has a valid JWT, will force them off if not
+ * @param {Object} history - History prop from react router
+ */
+const verifyLogin = async (history) => {
+    try{
+    const token = await localStorage.getItem("token");
+
+    await jwt.verify(token,'n');
+
+    return token;
+
+    }catch(e){
+        authFailure(history);
+    }
+}
 
 /**
  * Returns token from backend if provided correct password
@@ -11,7 +31,7 @@ const SERVER_URL = 'http://localhost:3000';
  */
 const login = async (password,history) => {
     try{
-        let {data} = await axios.post(SERVER_URL+'/token',{password});
+        let {data} = await admin.post('/token',{password});
         
         const {token} = data.data;
         localStorage.setItem("token",token);
@@ -45,14 +65,14 @@ const logout = async (history) => {
  */
 const acceptHacker = async (email,history) => {
     try{
-        const token = await localStorage.getItem("token");
+        const token = await verifyLogin(history);
         const config = {
             headers: {
                 'Authorization':'Bearer '+ token
             },
         }
 
-        await axios.put(SERVER_URL + "/admin/acceptOne",{email},config);
+        await admin.put("/admin/acceptOne",{email},config);
         alert('Accepted hacker');
 
     }catch(e){
@@ -60,7 +80,7 @@ const acceptHacker = async (email,history) => {
             alert('Hacker already accepted')
 
         else 
-            authFailure(history);
+            console.log(e);
     }
 }
 
@@ -71,18 +91,19 @@ const acceptHacker = async (email,history) => {
  */
 const checkIn = async (shellID,history) => {
     try{
-        const token = await localStorage.getItem("token");
+        const token = await verifyLogin(history);
+
         const config = {
             headers: {
                 'Authorization':'Bearer '+ token
             },
         }
 
-        await axios.put(SERVER_URL + "/admin/checkIn",{shellID},config);
-        alert('Checked in hacker');
+        await admin.put("/admin/checkIn",{shellID},config);
 
+        alert('Checked in hacker');
     }catch(e){
-        authFailure(history);
+        console.log(e);
     }
 }
 
@@ -92,9 +113,9 @@ const checkIn = async (shellID,history) => {
  * @param {String} q - Query string for search
  * @param {Object} history - History prop from react router
  */
-const getApplicants = async (page,q,history) => {
+const getApplicants = async (page,q,history,acceptedFilter = false) => {
     try{
-        const token = await localStorage.getItem("token");
+        const token = await verifyLogin(history);
         const config = {
             headers: {
                 'Authorization':'Bearer '+ token
@@ -104,17 +125,16 @@ const getApplicants = async (page,q,history) => {
         if(!q)
             q = '';
 
-        const {data} = await axios.get(SERVER_URL+`/application?page=${page}&q=${q}`,config);
+        const {data} = await admin.get(`/application?page=${page}&q=${q}&acceptedFilter=${acceptedFilter}`,config);
 
         const {applicants,overallPages,count} = data.data
 
         return {applicants,overallPages,count};
     }catch(e){
         String(e).includes("401") ?
-        authFailure(history) :
+        console.log(e) :
         alert('No Hackers found');
-    }
-    
+    } 
 }
 
 /**
@@ -125,16 +145,15 @@ const getStatistics = async (history) => {
     const makeObj = (key,value) => {
         return {key,value};
     }
-
     try{
-        const token = await localStorage.getItem("token");
+        const token = await verifyLogin(history);
         const config = {
             headers: {
                 'Authorization':'Bearer '+ token
             }
         }
 
-        const {data} = await axios.get(SERVER_URL + '/admin/statistics',config);
+        const {data} = await admin.get('/cabinet/statistics',config);
 
         const{numApplicants,numConfirmed,numApplied,numNotApplied,numAccepted,numMales,numFemales} = data.data
 
@@ -145,14 +164,13 @@ const getStatistics = async (history) => {
         let acceptedObj = makeObj("Accepted",numAccepted);
         let malesObj = makeObj("Males",numMales);
         let femaleObj = makeObj("Females",numFemales);
-    
-        let stats = [applicantsObj,confirmedObj,appliedObj,notAppliedObj,acceptedObj,malesObj,femaleObj]
-    
-        return stats;
 
+        let stats = [applicantsObj,confirmedObj,appliedObj,notAppliedObj,acceptedObj,malesObj,femaleObj]
+
+        return stats;
     }catch(e){
-        authFailure(history);
+        console.log(e);
     }
 }
 
-export default {acceptHacker, getApplicants, login, logout, checkIn,getStatistics};
+export default {acceptHacker, getApplicants, login, logout, checkIn,getStatistics, verifyLogin};

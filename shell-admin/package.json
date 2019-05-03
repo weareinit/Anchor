@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "dotenv": "^7.0.0",
+    "jsonwebtoken": "^8.5.1",
     "react": "^16.8.6",
     "react-burger-menu": "^2.6.8",
     "react-dom": "^16.8.6",

@@ -2,11 +2,19 @@ import React,{Component} from 'react';
 
 import './style.css';
 
+import Admin from '../../services/admin';
+
 import NavBar from '../../components/navbar';
 
 class Reminders extends Component{
     constructor(props){
         super(props);
+    }
+
+    async componentDidMount(){
+        const{history} = this.props;
+
+        await Admin.verifyLogin(history);
     }
 
     render(){

@@ -17,7 +17,8 @@ class Hackers extends Component{
             q: '',
             page: 0,
             overallPages: null,
-            count: null
+            count: null,
+            acceptedFilter: false
         }
     }
 
@@ -42,11 +43,11 @@ class Hackers extends Component{
     * Calls applicants service with a query string
     */
     hackerSearch = async () => { 
-       const{q} = this.state;
+       const{q,acceptedFilter} = this.state;
        const{history} = this.props;
 
        try{
-           const response = await await Admin.getApplicants(0,q,history);
+           const response = await await Admin.getApplicants(0,q,history,acceptedFilter);
            const{applicants,overallPages,count} = response
 
         this.setState({count,overallPages,applicants,page:0})
@@ -64,13 +65,13 @@ class Hackers extends Component{
     handlePageClick = async data => {
         const{history} = this.props;
         const{selected} = data;
-        const{q} = this.state;
+        const{q,acceptedFilter} = this.state;
 
-        const response = await Admin.getApplicants(selected,q,history);
+        const response = await Admin.getApplicants(selected,q,history,acceptedFilter);
         const{applicants} = response
 
-        this.setState({applicants})
-        console.log(this.state.applicants)
+        this.setState({applicants});
+        console.log(this.state.applicants);
     }
 
     handleInputChange(property) {
@@ -80,6 +81,12 @@ class Hackers extends Component{
           });
         };
       }
+
+    toggleChange = () => {
+    this.setState({
+        acceptedFilter: !this.state.acceptedFilter,
+    });
+    }
 
     render(){
         const{applicants,overallPages,count} = this.state;
@@ -99,7 +106,7 @@ class Hackers extends Component{
                         <br />
                         <div className="filters">
                             <button onClick = {this.hackerSearch} className="searchBtn">Search</button>
-                            {/* <label><input id="accepted" type="checkbox"/> Accepted</label> */}
+                            <label><input onChange={this.toggleChange} id="accepted" type="checkbox"/> Accepted</label>
                         </div>
                         <h2>{count} Hackers Found</h2>
                         <button className="allBtn">Accept All</button>

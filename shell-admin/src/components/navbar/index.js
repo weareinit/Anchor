@@ -15,7 +15,7 @@ class Navbar extends Component{
     logout = async () => {
         const{history} = this.props;
         
-        Admin.logout(history);
+        await Admin.logout(history);
     }
     
     render(){

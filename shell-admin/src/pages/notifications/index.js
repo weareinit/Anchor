@@ -1,8 +1,10 @@
 import React,{Component} from 'react';
 
-import Navbar from '../../components/navbar';
-
 import './style.css';
+
+import Admin from '../../services/admin';
+
+import Navbar from '../../components/navbar';
 
 class Notifications extends Component{
     constructor(props){
@@ -13,6 +15,12 @@ class Notifications extends Component{
             body: null,
             tag: null
         }
+    }
+
+    async componentDidMount(){
+        const {history} = this.props;
+
+        await Admin.verifyLogin(history);
     }
 
     handleInputChange(property) {
