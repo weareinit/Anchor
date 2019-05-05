@@ -13,12 +13,13 @@ class Hackers extends Component{
         super(props)
 
         this.state = {
+            allApplicants: null,
             applicants: null,
             q: '',
             page: 0,
             overallPages: null,
             count: null,
-            acceptedFilter: false
+            filter: null
         }
     }
 
@@ -30,9 +31,9 @@ class Hackers extends Component{
         
         try{
         const response = await Admin.getApplicants(0,null,history);
-        const{applicants,overallPages,count} = response;
+        const{applicants,overallPages,count,allApplicants} = response;
 
-        this.setState({count,overallPages,applicants});
+        this.setState({count,overallPages,applicants,allApplicants});
        
         }catch(e){
             console.log(e);
@@ -43,14 +44,14 @@ class Hackers extends Component{
     * Calls applicants service with a query string
     */
     hackerSearch = async () => { 
-       const{q,acceptedFilter} = this.state;
+       const{q,filter} = this.state;
        const{history} = this.props;
 
        try{
-           const response = await await Admin.getApplicants(0,q,history,acceptedFilter);
-           const{applicants,overallPages,count} = response
+           const response = await await Admin.getApplicants(0,q,history,filter);
+           const{applicants,overallPages,count,allApplicants} = response
 
-        this.setState({count,overallPages,applicants,page:0})
+        this.setState({count,overallPages,applicants,allApplicants,page:0})
 
        }catch(e){
            console.log(e);
@@ -65,13 +66,25 @@ class Hackers extends Component{
     handlePageClick = async data => {
         const{history} = this.props;
         const{selected} = data;
-        const{q,acceptedFilter} = this.state;
+        const{q,filter} = this.state;
 
-        const response = await Admin.getApplicants(selected,q,history,acceptedFilter);
-        const{applicants} = response
+        const response = await Admin.getApplicants(selected,q,history,filter);
+        const{applicants,allApplicants} = response
 
-        this.setState({applicants});
+        this.setState({applicants,allApplicants});
         console.log(this.state.applicants);
+    }
+
+    acceptAll = async () => {
+        const{allApplicants} = this.state;
+        let shellIDs = [];
+
+        allApplicants.map(applicant => {
+            const {shellID} = applicant;
+            shellIDs.push(shellID);
+        })
+        
+        await Admin.acceptHacker(shellIDs);
     }
 
     handleInputChange(property) {
@@ -82,10 +95,10 @@ class Hackers extends Component{
         };
       }
 
-    toggleChange = () => {
-    this.setState({
-        acceptedFilter: !this.state.acceptedFilter,
-    });
+    toggleChange = (event) => {
+        const{value} = event.target
+
+        this.setState({filter:value});
     }
 
     render(){
@@ -104,12 +117,15 @@ class Hackers extends Component{
                             type='text'
                             />
                         <br />
-                        <div className="filters">
                             <button onClick = {this.hackerSearch} className="searchBtn">Search</button>
-                            <label><input onChange={this.toggleChange} id="accepted" type="checkbox"/> Accepted</label>
+                        <div onChange={this.toggleChange} className="filters">
+                            <label><input defaultChecked value={null} name="hackerFilter" className="toggle" type="radio"/> All</label>
+                            <label><input name="hackerFilter" value="applied" className="toggle" type="radio"/> Applied</label>
+                            <label><input name="hackerFilter" value="accepted" className="toggle" type="radio"/> Accepted</label>
+                            <label><input name="hackerFilter" value="confirmed" className="toggle" type="radio"/> Confirmed</label>
                         </div>
                         <h2>{count} Hackers Found</h2>
-                        <button className="allBtn">Accept All</button>
+                        <button onClick={this.acceptAll} className="allBtn">Accept All</button>
                         <div className="hackersContainer">
                             {applicants.map(hacker => {
                                 return <Hacker history={history} data = {hacker} />
@@ -134,7 +150,6 @@ class Hackers extends Component{
             <div className="hackerOuter">
                 <h1 id="loading">Loading...</h1>
             </div>
-
         );
     }
 }

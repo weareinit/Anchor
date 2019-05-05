@@ -36,9 +36,12 @@ class Hacker extends Component{
 
     accept = async () => {
         const{history,data} = this.props;
-        const {email} = data;
+        const {shellID} = data;
+        
+        const idArr = [shellID]
+        console.log(shellID);
 
-        await Admin.acceptHacker(email,history);
+        await Admin.acceptHacker(idArr,history);
         
 
     }

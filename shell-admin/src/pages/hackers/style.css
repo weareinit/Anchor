@@ -55,6 +55,8 @@
     background-color: rgba(0, 0, 0, 0.3) !important;
     font-size: 15px;
     margin-left: 5%;
+    margin-right:10px;
+    margin-top: 10px;
 }
 
 #loading{
@@ -91,15 +93,14 @@
     background-color: lightgray;
  }
  .filters{
+    margin-left: 5%;
     margin-top: 10px;
-    display: flex;
-    align-items: center;
  }
 
- #accepted{
+ .toggle{
     border: 0.1em solid #000;
     border-radius: 0.2em;
-    margin-left: 20px;
+    margin-left: 5px;
     width: .9em;
     height: .9em;
  }

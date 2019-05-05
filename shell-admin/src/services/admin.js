@@ -63,7 +63,7 @@ const logout = async (history) => {
  * @param {String} email - Hacker email
  * @param {Object} history - History prop from react router
  */
-const acceptHacker = async (email,history) => {
+const acceptHacker = async (shellIDs,history) => {
     try{
         const token = await verifyLogin(history);
         const config = {
@@ -72,7 +72,7 @@ const acceptHacker = async (email,history) => {
             },
         }
 
-        await admin.put("/admin/acceptOne",{email},config);
+        await admin.put("/admin/accept",{shellIDs},config);
         alert('Accepted hacker');
 
     }catch(e){
@@ -113,7 +113,7 @@ const checkIn = async (shellID,history) => {
  * @param {String} q - Query string for search
  * @param {Object} history - History prop from react router
  */
-const getApplicants = async (page,q,history,acceptedFilter = false) => {
+const getApplicants = async (page,q,history,filter = '') => {
     try{
         const token = await verifyLogin(history);
         const config = {
@@ -125,11 +125,13 @@ const getApplicants = async (page,q,history,acceptedFilter = false) => {
         if(!q)
             q = '';
 
-        const {data} = await admin.get(`/application?page=${page}&q=${q}&acceptedFilter=${acceptedFilter}`,config);
+        const {data} = await admin.get(`/application?page=${page}&q=${q}&filter=${filter}`,config);
 
-        const {applicants,overallPages,count} = data.data
+        console.log(data.data);
 
-        return {applicants,overallPages,count};
+        const {applicants,allApplicants,overallPages,count} = data.data
+
+        return {applicants,allApplicants,overallPages,count};
     }catch(e){
         String(e).includes("401") ?
         console.log(e) :

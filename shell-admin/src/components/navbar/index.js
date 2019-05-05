@@ -11,6 +11,10 @@ class Navbar extends Component{
     constructor(props){
         super(props)
     }
+
+    componentDidMount(){
+        
+    }
     
     logout = async () => {
         const{history} = this.props;
