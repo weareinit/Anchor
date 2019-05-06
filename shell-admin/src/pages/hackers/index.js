@@ -5,6 +5,7 @@ import './style.css';
 
 import Hacker from '../../components/hacker';
 import Navbar from '../../components/navbar';
+import ConfirmModal from '../../components/confirmModal';
 
 import Admin from '../../services/admin';
 
@@ -19,7 +20,9 @@ class Hackers extends Component{
             page: 0,
             overallPages: null,
             count: null,
-            filter: null
+            filter: '',
+            openModal: null,
+            shellIDs: null
         }
     }
 
@@ -72,7 +75,6 @@ class Hackers extends Component{
         const{applicants,allApplicants} = response
 
         this.setState({applicants,allApplicants});
-        console.log(this.state.applicants);
     }
 
     acceptAll = async () => {
@@ -83,8 +85,8 @@ class Hackers extends Component{
             const {shellID} = applicant;
             shellIDs.push(shellID);
         })
-        
-        await Admin.acceptHacker(shellIDs);
+
+        this.setState({shellIDs,openModal: true});
     }
 
     handleInputChange(property) {
@@ -102,7 +104,7 @@ class Hackers extends Component{
     }
 
     render(){
-        const{applicants,overallPages,count} = this.state;
+        const{applicants,overallPages,count,openModal,shellIDs} = this.state;
         const{history} = this.props;
 
         return(
@@ -110,12 +112,13 @@ class Hackers extends Component{
             <div>
                 <Navbar />
                     <div className="hackerOuter">
-                            <input 
-                            onChange = {this.handleInputChange('q')} 
-                            placeholder="Search for hacker" 
-                            className="hackerInput" 
-                            type='text'
-                            />
+                    <ConfirmModal action={() => Admin.acceptHacker(shellIDs)} open ={openModal} description = "accept all hackers" />
+                        <input 
+                        onChange = {this.handleInputChange('q')} 
+                        placeholder="Search for hacker" 
+                        className="hackerInput" 
+                        type='text'
+                        />
                         <br />
                             <button onClick = {this.hackerSearch} className="searchBtn">Search</button>
                         <div onChange={this.toggleChange} className="filters">

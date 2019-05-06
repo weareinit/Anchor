@@ -30,7 +30,7 @@ class Hacker extends Component{
         this.setState({modalOpen: true})
     }
 
-    cloaseModal = () => {
+    closeModal = () => {
         this.setState({modalOpen:false})
     }
 
@@ -39,11 +39,8 @@ class Hacker extends Component{
         const {shellID} = data;
         
         const idArr = [shellID]
-        console.log(shellID);
 
         await Admin.acceptHacker(idArr,history);
-        
-
     }
 
     checkIn = async () => {
@@ -55,24 +52,23 @@ class Hacker extends Component{
     }
 
     render(){
-
         const{firstName,lastName,email,schoolName, applicationStatus,dob,
               gender,github,linkedIn,graduationYear,levelOfStudy,major,needReimbursement,
-              race,shirtSize,phoneNumber,checkIn} = this.props.data
+              race,shirtSize,phoneNumber,checkIn} = this.props.data;
+
+        const acceptBtn = applicationStatus === 'accepted' ? null : <button onClick={this.accept} style={disabledStyle} className="acceptBtn">Accept</button>
 
         return(
             <div className="hackerContainer">
                 <h1>{firstName} {lastName}</h1>
                 <p>• Email: {email}</p>
-                {/* <p>• School: {schoolName}</p> */}
-                {/* <p>Location: Miami,Fl</p> */}
                 <p>• Application Status: {applicationStatus}</p>
                 <button onClick={this.openModal}>More Info</button>
-                <button onClick={this.accept} style={disabledStyle} className="acceptBtn">Accept</button>
+                {acceptBtn}
                 <button onClick={this.checkIn} className="acceptBtn">Check In</button>
                 <Modal 
                 isOpen = {this.state.modalOpen}
-                onRequestClose = {this.cloaseModal}
+                onRequestClose = {this.closeModal}
                 contentLabel = 'Example Modal'
                 style = {modalStyles}
                 >

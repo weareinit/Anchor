@@ -12,10 +12,6 @@ class Navbar extends Component{
         super(props)
     }
 
-    componentDidMount(){
-        
-    }
-    
     logout = async () => {
         const{history} = this.props;
         
@@ -23,7 +19,6 @@ class Navbar extends Component{
     }
     
     render(){
-       
         return(
             <Menu styles = {styles}>
                 <img style = {styles.shell} src={Shell}/>

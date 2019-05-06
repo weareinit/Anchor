@@ -1,0 +1,17 @@
+.modalBtns button {
+    border: none;
+    outline-style: none;
+    border-radius: 10px;
+    padding: 12px;
+    color: black;
+    font-weight: 900;
+    background-color: rgba(0, 0, 0, 0.3) !important;
+    font-size: 25px;
+    margin-top: 2%;
+    margin-right: 30px;
+    margin-left: 30px;
+}
+.modalBtns{
+    text-align: center;
+    width: 100%;
+}

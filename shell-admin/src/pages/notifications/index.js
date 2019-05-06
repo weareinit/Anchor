@@ -41,8 +41,6 @@ class Notifications extends Component{
             if(!body || !subject || !tag)
                 throw('Please fill out rest of form')
 
-          console.log(body);
-
         }catch(e){
             alert(e);
         }
@@ -69,8 +67,7 @@ class Notifications extends Component{
                         <input onChange={this.handleInputChange('tag')} type="text" />
                     </div>
                     <button onClick={this.handleClick} id="notificationBtn">Send</button>
-                </div>
-                
+                </div>     
             </div>
         )
     }

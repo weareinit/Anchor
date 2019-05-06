@@ -126,9 +126,6 @@ const getApplicants = async (page,q,history,filter = '') => {
             q = '';
 
         const {data} = await admin.get(`/application?page=${page}&q=${q}&filter=${filter}`,config);
-
-        console.log(data.data);
-
         const {applicants,allApplicants,overallPages,count} = data.data
 
         return {applicants,allApplicants,overallPages,count};
@@ -147,6 +144,7 @@ const getStatistics = async (history) => {
     const makeObj = (key,value) => {
         return {key,value};
     }
+    
     try{
         const token = await verifyLogin(history);
         const config = {
