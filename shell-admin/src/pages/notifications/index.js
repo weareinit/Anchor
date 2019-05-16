@@ -11,7 +11,7 @@ class Notifications extends Component{
         super(props);
 
         this.state = {
-            subject: null,
+            title: null,
             body: null,
             tag: null
         }
@@ -34,15 +34,19 @@ class Notifications extends Component{
       /**
        * In the works
        */
-      handleClick = () => {
-          const{subject,body,tag} = this.state;
+      handleClick = async () => {
+          const{title,body,tag} = this.state;
+          const {history} = this.props;
 
         try{
-            if(!body || !subject || !tag)
+            if(!body || !title || !tag)
                 throw('Please fill out rest of form')
+        
+            const data = {tag};
 
+            await Admin.sendNotifications(title,body,data,history);
         }catch(e){
-            alert(e);
+            console.log(e);
         }
       }
 
@@ -55,8 +59,8 @@ class Notifications extends Component{
                 </div>
                 <div className="notificationsContainer">
                     <div className="notification">
-                        <h2>Subject Line</h2>
-                        <input  onChange={this.handleInputChange('subject')} type="text" />
+                        <h2>Title</h2>
+                        <input  onChange={this.handleInputChange('title')} type="text" />
                     </div>
                     <div className="notification">
                         <h2>Body</h2>

@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 
 import authFailure from '../utils/auth';
 
-const SERVER_URL = 'http://localhost:3000';
+const SERVER_URL = 'https://immense-reef-66486.herokuapp.com/';
 
 const admin = axios.create({baseURL: SERVER_URL});
 
@@ -168,9 +168,35 @@ const getStatistics = async (history) => {
         let stats = [applicantsObj,confirmedObj,appliedObj,notAppliedObj,acceptedObj,malesObj,femaleObj]
 
         return stats;
+
     }catch(e){
         console.log(e);
     }
 }
 
-export default {acceptHacker, getApplicants, login, logout, checkIn,getStatistics, verifyLogin};
+/**
+ * 
+ * @param {String} title - Title for push notification 
+ * @param {String} body - Body for push notificatoin
+ * @param {Object} data - Data for push notification
+ */
+const sendNotifications = async (title,body,data,history) => {
+    try{
+        const token = await verifyLogin(history);
+
+        const config = {
+            headers: {
+                'Authorization':'Bearer '+ token
+            },
+        }
+
+        await admin.post('/admin/notification',{title,body,data},config)
+
+        alert('notification sent');
+
+    }catch(e){
+        console.log(e)
+    }
+}
+
+export default {acceptHacker, getApplicants, login, logout, checkIn,getStatistics, verifyLogin, sendNotifications};

@@ -112,7 +112,7 @@ class Hackers extends Component{
             <div>
                 <Navbar />
                     <div className="hackerOuter">
-                    <ConfirmModal action={() => Admin.acceptHacker(shellIDs)} open ={openModal} description = "accept all hackers" />
+                    <ConfirmModal close = {() => this.setState({openModal:false})} action={() => Admin.acceptHacker(shellIDs)} open ={openModal} description = "accept all hackers" />
                         <input 
                         onChange = {this.handleInputChange('q')} 
                         placeholder="Search for hacker" 

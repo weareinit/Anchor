@@ -27,6 +27,7 @@ class ConfirmModal extends Component{
 
     closeModal = () => {
         this.setState({modalOpen: false})
+        this.props.close();
     }
 
     componentWillReceiveProps(){
@@ -40,6 +41,7 @@ class ConfirmModal extends Component{
 
         await action();
         this.closeModal();
+        this.props.close();
     }
 
     render(){
