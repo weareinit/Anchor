@@ -1,13 +1,10 @@
 .pre-reg-card-container {
-    width: 17%;
-    margin: 5px;
-    /* box-sizing: border-box; */
-    background-color: #F2E2B8;
-    border-radius: 15px;
-    color: #675C50;
-    text-align: left;
-    word-break: normal;
-    font-size: 1em;
+    width: 17em;
+    background-color: rgba(206, 188, 143, 0.4);
+    border-radius: 10px;
+    box-shadow: 3px 3px rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    margin: 10px;
 }
 
 .pre-reg-card-container ul {
@@ -25,6 +22,7 @@
     font-weight: bold;
 }
 
-.pre-reg-card-counter {
-    font-size: 1.0em;
+.pre-reg-card-name {
+    font-size: 1.5em!important;
+    font-weight: bold;
 }

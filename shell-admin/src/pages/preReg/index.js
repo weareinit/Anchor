@@ -43,7 +43,7 @@ class PreRegistration extends Component {
             try {
                 let myData = Object.keys(objArr);
 
-                return myData.map((curr, i) => { console.log(objArr[curr]); return <Card key={curr} counter={i + 1} data={objArr[curr]} /> })
+                return myData.map((curr, i) => { return <Card key={curr} counter={i + 1} data={objArr[curr]} /> })
             } catch (err) {
                 alert("something went wrong!!\n" + err)
             }
