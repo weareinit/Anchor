@@ -26,6 +26,7 @@ class Navbar extends Component{
                 <a id="statistics" className="menu-item" href="/statistics">Statistics</a>
                 <a id="reminders" className="menu-item" href="/reminders">Reminders</a>
                 <a id="notifications" className="menu-item" href='/notifications'>Notifications</a>
+                <a id="notifications" className="menu-item" href='/preregistration'>Pre Regs</a>
                 <a onClick={this.logout} className="menu-item" href="">Logout</a>
             </Menu>
 

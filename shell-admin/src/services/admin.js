@@ -4,22 +4,23 @@ import jwt from 'jsonwebtoken';
 import authFailure from '../utils/auth';
 
 const SERVER_URL = 'https://immense-reef-66486.herokuapp.com/';
+const PRE_REG_URL = 'https://us-central1-preregistration-fc98c.cloudfunctions.net/widgets';
 
-const admin = axios.create({baseURL: SERVER_URL});
+const admin = axios.create({ baseURL: SERVER_URL });
 
 /**
  * Verifies that the user has a valid JWT, will force them off if not
  * @param {Object} history - History prop from react router
  */
 const verifyLogin = async (history) => {
-    try{
-    const token = await localStorage.getItem("token");
+    try {
+        const token = await localStorage.getItem("token");
 
-    await jwt.verify(token,'n');
+        await jwt.verify(token, 'n');
 
-    return token;
+        return token;
 
-    }catch(e){
+    } catch (e) {
         authFailure(history);
     }
 }
@@ -29,18 +30,18 @@ const verifyLogin = async (history) => {
  * @param {String} password - Given password 
  * @param {Object} history - History prop from react router
  */
-const login = async (password,history) => {
-    try{
-        let {data} = await admin.post('/token',{password});
-        
-        const {token} = data.data;
-        localStorage.setItem("token",token);
+const login = async (password, history) => {
+    try {
+        let { data } = await admin.post('/token', { password });
+
+        const { token } = data.data;
+        localStorage.setItem("token", token);
 
         history.push('/hackers');
 
-     }catch(e){
-         alert('Invalid Password');
-     }
+    } catch (e) {
+        alert('Invalid Password');
+    }
 }
 
 /**
@@ -48,12 +49,12 @@ const login = async (password,history) => {
  * @param {Object} history -History prop from react router
  */
 const logout = async (history) => {
-    try{
-        await localStorage.setItem("token",null);
+    try {
+        await localStorage.setItem("token", null);
 
         history.push('/');
 
-    }catch(e){
+    } catch (e) {
         console.log(e)
     }
 }
@@ -63,23 +64,23 @@ const logout = async (history) => {
  * @param {String} email - Hacker email
  * @param {Object} history - History prop from react router
  */
-const acceptHacker = async (shellIDs,history) => {
-    try{
+const acceptHacker = async (shellIDs, history) => {
+    try {
         const token = await verifyLogin(history);
         const config = {
             headers: {
-                'Authorization':'Bearer '+ token
+                'Authorization': 'Bearer ' + token
             },
         }
 
-        await admin.put("/admin/accept",{shellIDs},config);
+        await admin.put("/admin/accept", { shellIDs }, config);
         alert('Accepted hacker');
 
-    }catch(e){
-        if(String(e).includes('400'))
+    } catch (e) {
+        if (String(e).includes('400'))
             alert('Hacker already accepted')
 
-        else 
+        else
             console.log(e);
     }
 }
@@ -89,20 +90,20 @@ const acceptHacker = async (shellIDs,history) => {
  * @param {String} shellID - ShellID of hacker 
  * @param {Object} history - History prop from react router
  */
-const checkIn = async (shellID,history) => {
-    try{
+const checkIn = async (shellID, history) => {
+    try {
         const token = await verifyLogin(history);
 
         const config = {
             headers: {
-                'Authorization':'Bearer '+ token
+                'Authorization': 'Bearer ' + token
             },
         }
 
-        await admin.put("/admin/checkIn",{shellID},config);
+        await admin.put("/admin/checkIn", { shellID }, config);
 
         alert('Checked in hacker');
-    }catch(e){
+    } catch (e) {
         console.log(e);
     }
 }
@@ -113,27 +114,27 @@ const checkIn = async (shellID,history) => {
  * @param {String} q - Query string for search
  * @param {Object} history - History prop from react router
  */
-const getApplicants = async (page,q,history,filter = '') => {
-    try{
+const getApplicants = async (page, q, history, filter = '') => {
+    try {
         const token = await verifyLogin(history);
         const config = {
             headers: {
-                'Authorization':'Bearer '+ token
+                'Authorization': 'Bearer ' + token
             }
         }
 
-        if(!q)
+        if (!q)
             q = '';
 
-        const {data} = await admin.get(`/application?page=${page}&q=${q}&filter=${filter}`,config);
-        const {applicants,allApplicants,overallPages,count} = data.data
+        const { data } = await admin.get(`/application?page=${page}&q=${q}&filter=${filter}`, config);
+        const { applicants, allApplicants, overallPages, count } = data.data
 
-        return {applicants,allApplicants,overallPages,count};
-    }catch(e){
+        return { applicants, allApplicants, overallPages, count };
+    } catch (e) {
         String(e).includes("401") ?
-        console.log(e) :
-        alert('No Hackers found');
-    } 
+            console.log(e) :
+            alert('No Hackers found');
+    }
 }
 
 /**
@@ -141,35 +142,35 @@ const getApplicants = async (page,q,history,filter = '') => {
  * @param {Object} history - History prop from react-router
  */
 const getStatistics = async (history) => {
-    const makeObj = (key,value) => {
-        return {key,value};
+    const makeObj = (key, value) => {
+        return { key, value };
     }
-    
-    try{
+
+    try {
         const token = await verifyLogin(history);
         const config = {
             headers: {
-                'Authorization':'Bearer '+ token
+                'Authorization': 'Bearer ' + token
             }
         }
 
-        const {data} = await admin.get('/cabinet/statistics',config);
+        const { data } = await admin.get('/cabinet/statistics', config);
 
-        const{numApplicants,numConfirmed,numApplied,numNotApplied,numAccepted,numMales,numFemales} = data.data
+        const { numApplicants, numConfirmed, numApplied, numNotApplied, numAccepted, numMales, numFemales } = data.data
 
-        let applicantsObj = makeObj("Applicants",numApplicants)
-        let confirmedObj = makeObj("Confirmed",numConfirmed);
-        let appliedObj = makeObj("Applied",numApplied);
-        let notAppliedObj = makeObj("Not Applied",numNotApplied);
-        let acceptedObj = makeObj("Accepted",numAccepted);
-        let malesObj = makeObj("Males",numMales);
-        let femaleObj = makeObj("Females",numFemales);
+        let applicantsObj = makeObj("Applicants", numApplicants)
+        let confirmedObj = makeObj("Confirmed", numConfirmed);
+        let appliedObj = makeObj("Applied", numApplied);
+        let notAppliedObj = makeObj("Not Applied", numNotApplied);
+        let acceptedObj = makeObj("Accepted", numAccepted);
+        let malesObj = makeObj("Males", numMales);
+        let femaleObj = makeObj("Females", numFemales);
 
-        let stats = [applicantsObj,confirmedObj,appliedObj,notAppliedObj,acceptedObj,malesObj,femaleObj]
+        let stats = [applicantsObj, confirmedObj, appliedObj, notAppliedObj, acceptedObj, malesObj, femaleObj]
 
         return stats;
 
-    }catch(e){
+    } catch (e) {
         console.log(e);
     }
 }
@@ -180,23 +181,46 @@ const getStatistics = async (history) => {
  * @param {String} body - Body for push notificatoin
  * @param {Object} data - Data for push notification
  */
-const sendNotifications = async (title,body,data,history) => {
-    try{
+const sendNotifications = async (title, body, data, history) => {
+    try {
         const token = await verifyLogin(history);
 
         const config = {
             headers: {
-                'Authorization':'Bearer '+ token
+                'Authorization': 'Bearer ' + token
             },
         }
 
-        await admin.post('/admin/notification',{title,body,data},config)
+        await admin.post('/admin/notification', { title, body, data }, config)
 
         alert('notification sent');
 
-    }catch(e){
+    } catch (e) {
         console.log(e)
     }
 }
 
-export default {acceptHacker, getApplicants, login, logout, checkIn,getStatistics, verifyLogin, sendNotifications};
+/**
+ * Creates new axios with @PRE_REG_URL
+ * return pre-registration database snapshot
+ */
+const getPreReg = async (history) => {
+
+    var newInstance = await axios.create({
+        baseURL: PRE_REG_URL,
+    });
+
+    try {
+        await verifyLogin(history);
+
+        const response = await newInstance.get('/');
+
+        return response.data;
+
+    } catch (e) {
+        console.log(e);
+        alert('Something happened...contact Jehf');
+    }
+}
+
+export default { acceptHacker, getApplicants, login, logout, checkIn, getStatistics, verifyLogin, sendNotifications, getPreReg };
