@@ -35,7 +35,7 @@ const Card = (props) => {
         <div className="pre-reg-card-container">
 
             <ul className="pre-reg-card-list">
-                <li ><span className="pre-reg-card-name">{fname} {lname} </span> <br />number: {cardNum}</li>
+                <li ><span className="pre-reg-card-name">{lname} {fname}</span> <br />number: {cardNum}</li>
                 <li className="pre-reg-card-list-item"><span className="pre-reg-card-list-item-label"><br />Email<br /></span> {email}<br /></li>
                 <li className="pre-reg-card-list-item"><span className="pre-reg-card-list-item-label"><br />Message<br /></span> {message}<br /></li>
 
