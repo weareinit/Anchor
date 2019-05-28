@@ -37,6 +37,7 @@ class PreRegistration extends Component {
     render() {
 
         const { history } = this.props;
+        
         let objArr = this.state.data;
 
         let display = () => {
