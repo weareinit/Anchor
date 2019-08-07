@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 
 import authFailure from '../utils/auth';
 
-const SERVER_URL = 'https://immense-reef-66486.herokuapp.com/';
+const SERVER_URL = 'https://api.shellhacks.net';
 const PRE_REG_URL = 'https://us-central1-preregistration-fc98c.cloudfunctions.net/widgets';
 
 const admin = axios.create({ baseURL: SERVER_URL });
