@@ -16,7 +16,7 @@ const verifyLogin = async (history) => {
     try {
         const token = await localStorage.getItem("token");
 
-        await jwt.verify(token, 'n');
+        await jwt.verify(token, '5555');
 
         return token;
 
@@ -35,6 +35,7 @@ const login = async (password, history) => {
         let { data } = await admin.post('/token', { password });
 
         const { token } = data.data;
+        console.log(token);
         localStorage.setItem("token", token);
 
         history.push('/hackers');
@@ -157,8 +158,8 @@ const getStatistics = async (history) => {
         const { data } = await admin.get('/cabinet/statistics', config);
 
         const { numApplicants, numConfirmed, numApplied, numNotApplied, numAccepted, numMales, numFemales } = data.data
-
-        let applicantsObj = makeObj("Applicants", numApplicants)
+        console.log(data.data);
+        let applicantsObj = makeObj("Registered", numApplicants)
         let confirmedObj = makeObj("Confirmed", numConfirmed);
         let appliedObj = makeObj("Applied", numApplied);
         let notAppliedObj = makeObj("Not Applied", numNotApplied);
@@ -176,6 +177,7 @@ const getStatistics = async (history) => {
 }
 
 /**
+ * Sends push notifications to mobile and web clients
  * 
  * @param {String} title - Title for push notification 
  * @param {String} body - Body for push notificatoin
@@ -201,6 +203,51 @@ const sendNotifications = async (title, body, data, history) => {
 }
 
 /**
+ * sends reminder emails to all hackers who have not applied yet
+ * 
+ * @param {Object} history history prop from react-router
+ */
+const remindApply = async (history) => {
+  try{
+    const token = await verifyLogin(history);
+
+    const config = {
+      headers: {
+          'Authorization': 'Bearer ' + token
+      },
+    }
+
+    await admin.get('/admin/remind_apply', config);
+    alert('Reminders sent!');
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+/**
+ * sends reminder emails to all hackers who have not confirmed yet
+ * 
+ * @param {Object} history history prop from react-router
+ */
+const remindConfirm = async (history) => {
+  try{
+    const token = await verifyLogin(history);
+
+    const config = {
+      headers: {
+          'Authorization': 'Bearer ' + token
+      },
+    }
+
+    await admin.get('/admin/remind_confirm', config);
+    alert('Reminders sent!');
+
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+/**
  * Creates new axios with @PRE_REG_URL
  * return pre-registration database snapshot
  */
@@ -223,4 +270,4 @@ const getPreReg = async (history) => {
     }
 }
 
-export default { acceptHacker, getApplicants, login, logout, checkIn, getStatistics, verifyLogin, sendNotifications, getPreReg };
+export default { acceptHacker, getApplicants, login, logout, checkIn, getStatistics, verifyLogin, sendNotifications, getPreReg, remindApply, remindConfirm};

@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import Modal from 'react-modal';
 
 import Admin from '../../services/admin';
+import ConfirmModal from '../confirmModal';
 
 import './style.css'
 
@@ -23,11 +24,13 @@ class Hacker extends Component{
 
         this.state = {
             modalOpen: false,
+            modalOpenConfirm: false
         }
     }
 
     openModal = () => {
         this.setState({modalOpen: true})
+        console.log(this.props.data);
     }
 
     closeModal = () => {
@@ -35,12 +38,9 @@ class Hacker extends Component{
     }
 
     accept = async () => {
-        const{history,data} = this.props;
-        const {shellID} = data;
-        
-        const idArr = [shellID]
 
-        await Admin.acceptHacker(idArr,history);
+        this.setState({ modalOpenConfirm: true })
+        //await Admin.acceptHacker(idArr,history);
     }
 
     checkIn = async () => {
@@ -54,12 +54,19 @@ class Hacker extends Component{
     render(){
         const{firstName,lastName,email,schoolName, applicationStatus,dob,
               gender,github,linkedIn,graduationYear,levelOfStudy,major,needReimbursement,
-              race,shirtSize,phoneNumber,checkIn} = this.props.data;
+              race,shirtSize,phoneNumber,checkIn, howDidYouHear, reasonForAttending, resume, areaOfFocus} = this.props.data;
+
+        const { modalOpenConfirm } = this.state;
+
+        const{history,data} = this.props;
+        const {shellID} = data;
+        const idArr = [shellID]
 
         const acceptBtn = applicationStatus === 'accepted' ? null : <button onClick={this.accept} style={disabledStyle} className="acceptBtn">Accept</button>
 
         return(
             <div className="hackerContainer">
+                <ConfirmModal close = {() => this.setState({modalOpenConfirm:false})} action={() => Admin.acceptHacker(idArr,history)} open ={modalOpenConfirm} description = {`accept ${firstName} ${lastName}`}/>
                 <h1>{firstName} {lastName}</h1>
                 <p>• Email: {email}</p>
                 <p>• Application Status: {applicationStatus}</p>
@@ -76,6 +83,7 @@ class Hacker extends Component{
                     <p>• Email: {email}</p>
                     <p>• School: {schoolName}</p>
                     <p>• Major: {major}</p>
+                    <p>• Area of focus: {areaOfFocus}</p>
                     <p>• Checked In: {checkIn ? 'Yes':'No'}</p>
                     <p>• Graduation Year: {graduationYear}</p>
                     <p>• Level of Study: {levelOfStudy}</p>
@@ -85,8 +93,11 @@ class Hacker extends Component{
                     <p>• Phone: {phoneNumber}</p>
                     <p>• Needs Reimbursement: {needReimbursement}</p>
                     <p>• Shirt Size: {shirtSize}</p>
-                    <p>• GitHub: {github}</p>
-                    <p>• LinkedIn: {linkedIn}</p>
+                    <p>• GitHub: <a href={github} target="_blank">{github}</a></p>
+                    <p>• LinkedIn: <a href={linkedIn} target="_blank">{linkedIn}</a></p>
+                    <p>• Resume: <a href={resume} target="_blank">{resume ? 'Drive link' : null}</a></p>
+                    <p>• How did you hear?: {howDidYouHear}</p>
+                    <p>• Reason for attending?: {reasonForAttending}</p>
                 </Modal>
             </div>
         );
