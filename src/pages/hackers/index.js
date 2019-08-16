@@ -34,6 +34,7 @@ class Hackers extends Component{
         
         try{
         const response = await Admin.getApplicants(0,null,history);
+        //console.log(response);
         const{applicants,overallPages,count,allApplicants} = response;
 
         this.setState({count,overallPages,applicants,allApplicants});
@@ -86,7 +87,7 @@ class Hackers extends Component{
             shellIDs.push(shellID);
         })
 
-        this.setState({shellIDs,openModal: true});
+        this.setState({shellIDs, openModal: true});
     }
 
     handleInputChange(property) {
@@ -112,7 +113,7 @@ class Hackers extends Component{
             <div>
                 <Navbar />
                     <div className="hackerOuter">
-                    <ConfirmModal close = {() => this.setState({openModal:false})} action={() => Admin.acceptHacker(shellIDs)} open ={openModal} description = "accept all hackers" />
+                    <ConfirmModal close = {() => this.setState({openModal:false})} action={() => Admin.acceptHacker(shellIDs)} open ={openModal} description = {`accept all ${count} hackers`} />
                         <input 
                         onChange = {this.handleInputChange('q')} 
                         placeholder="Search for hacker" 
