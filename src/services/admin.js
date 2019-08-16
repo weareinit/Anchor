@@ -157,7 +157,7 @@ const getStatistics = async (history) => {
 
         const { data } = await admin.get('/cabinet/statistics', config);
 
-        const { numApplicants, numConfirmed, numApplied, numNotApplied, numAccepted, numMales, numFemales } = data.data
+        const { numApplicants, numConfirmed, numApplied, numNotApplied, numAccepted, numMales, numFemales, sortedSchools } = data.data
         console.log(data.data);
         let applicantsObj = makeObj("Registered", numApplicants)
         let confirmedObj = makeObj("Confirmed", numConfirmed);
@@ -169,7 +169,7 @@ const getStatistics = async (history) => {
 
         let stats = [applicantsObj, confirmedObj, appliedObj, notAppliedObj, acceptedObj, malesObj, femaleObj]
 
-        return stats;
+        return {stats, sortedSchools};
 
     } catch (e) {
         console.log(e);
