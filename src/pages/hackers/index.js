@@ -121,13 +121,13 @@ class Hackers extends Component{
                         type='text'
                         />
                         <br />
-                            <button onClick = {this.hackerSearch} className="searchBtn">Search</button>
                         <div onChange={this.toggleChange} className="filters">
                             <label><input defaultChecked value={null} name="hackerFilter" className="toggle" type="radio"/> All</label>
                             <label><input name="hackerFilter" value="applied" className="toggle" type="radio"/> Applied</label>
                             <label><input name="hackerFilter" value="accepted" className="toggle" type="radio"/> Accepted</label>
                             <label><input name="hackerFilter" value="confirmed" className="toggle" type="radio"/> Confirmed</label>
                         </div>
+                        <button onClick = {this.hackerSearch} className="searchBtn">Search</button>
                         <h2>{count} Hackers Found</h2>
                         <button onClick={this.acceptAll} className="allBtn">Accept All</button>
                         <div className="hackersContainer">
