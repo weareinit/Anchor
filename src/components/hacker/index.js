@@ -24,7 +24,8 @@ class Hacker extends Component{
 
         this.state = {
             modalOpen: false,
-            modalOpenConfirm: false
+            modalOpenConfirm: false,
+            action: null,
         }
     }
 
@@ -38,9 +39,8 @@ class Hacker extends Component{
     }
 
     accept = async () => {
-
+        this.setState({ action: 'accept' })
         this.setState({ modalOpenConfirm: true })
-        //await Admin.acceptHacker(idArr,history);
     }
 
     checkIn = async () => {
@@ -48,31 +48,37 @@ class Hacker extends Component{
         const{shellID} = data;
 
         await Admin.checkIn(shellID,history);
+    }
 
+    delete = async () => {
+      this.setState({ action: 'delete' });
+      this.setState({ modalOpenConfirm: true });
     }
 
     render(){
         const{firstName,lastName,email,schoolName, applicationStatus,dob,
               gender,github,linkedIn,graduationYear,levelOfStudy,major,needReimbursement,
-              race,shirtSize,phoneNumber,checkIn, howDidYouHear, reasonForAttending, resume, areaOfFocus} = this.props.data;
+              race,shirtSize,phoneNumber,checkIn, howDidYouHear, reasonForAttending, resume, areaOfFocus, emailConfirmed, dietaryRestriction } = this.props.data;
 
-        const { modalOpenConfirm } = this.state;
+        const { modalOpenConfirm, action } = this.state;
 
-        const{history,data} = this.props;
+        const {history,data} = this.props;
         const {shellID} = data;
         const idArr = [shellID]
 
         const acceptBtn = applicationStatus === 'accepted' ? null : <button onClick={this.accept} style={disabledStyle} className="acceptBtn">Accept</button>
+        const func = action === 'accept' ? () => Admin.acceptHacker(idArr, history) : () => Admin.deleteOne(shellID, history);
 
         return(
             <div className="hackerContainer">
-                <ConfirmModal close = {() => this.setState({modalOpenConfirm:false})} action={() => Admin.acceptHacker(idArr,history)} open ={modalOpenConfirm} description = {`accept ${firstName} ${lastName}`}/>
-                <h1>{firstName} {lastName}</h1>
+                <ConfirmModal close = {() => this.setState({modalOpenConfirm:false})} action={func} open ={modalOpenConfirm} description = {`${action} ${firstName} ${lastName}`}/>
+                  <h1>{firstName} {lastName}</h1>
                 <p>• Email: {email}</p>
                 <p>• Application Status: {applicationStatus}</p>
-                <button onClick={this.openModal}>More Info</button>
+                <button onClick={this.openModal}>Info</button>
                 {acceptBtn}
                 <button onClick={this.checkIn} className="acceptBtn">Check In</button>
+                <button onClick={this.delete} className="acceptBtn">X</button>
                 <Modal 
                 isOpen = {this.state.modalOpen}
                 onRequestClose = {this.closeModal}
@@ -81,6 +87,7 @@ class Hacker extends Component{
                 >
                     <h1>{firstName} {lastName}</h1>
                     <p>• Email: {email}</p>
+                    <p>• Email Verified? { emailConfirmed === true ? 'Yes' : 'No' }</p>
                     <p>• School: {schoolName}</p>
                     <p>• Major: {major}</p>
                     <p>• Area of focus: {areaOfFocus}</p>
@@ -98,6 +105,7 @@ class Hacker extends Component{
                     <p>• Resume: <a href={resume} target="_blank">{resume ? 'Drive link' : null}</a></p>
                     <p>• How did you hear?: {howDidYouHear}</p>
                     <p>• Reason for attending?: {reasonForAttending}</p>
+                    <p>• Dietary Restrictions?: { dietaryRestriction }</p>
                 </Modal>
             </div>
         );

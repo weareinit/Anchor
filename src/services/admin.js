@@ -75,7 +75,7 @@ const acceptHacker = async (shellIDs, history) => {
         }
 
         await admin.put("/admin/accept", { shellIDs }, config);
-        alert('Accepted hacker');
+        alert('Accepted hacker, refresh to see changes');
 
     } catch (e) {
         if (String(e).includes('400'))
@@ -84,6 +84,24 @@ const acceptHacker = async (shellIDs, history) => {
         else
             console.log(e);
     }
+}
+
+const deleteOne = async (shellID, history) => {
+  try {
+    const token = await verifyLogin(history);
+
+    const config = {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      },
+    };
+
+    await admin.put("/admin/delete", { shellID }, config);
+
+    alert('Hacker deleted, refresh to see changes');
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 /**
@@ -270,4 +288,4 @@ const getPreReg = async (history) => {
     }
 }
 
-export default { acceptHacker, getApplicants, login, logout, checkIn, getStatistics, verifyLogin, sendNotifications, getPreReg, remindApply, remindConfirm};
+export default { acceptHacker, getApplicants, login, logout, checkIn, getStatistics, verifyLogin, sendNotifications, getPreReg, remindApply, remindConfirm, deleteOne };
