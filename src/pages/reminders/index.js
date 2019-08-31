@@ -45,7 +45,7 @@ class Reminders extends Component{
       <div>
         <NavBar />
         <div className="reminderOuter">
-        <ConfirmModal close = {() => this.setState({openModal:false})} action={func} open ={openModal} description = {description} />
+        <ConfirmModal close = { () => this.setState({ openModal:false }) } action={ func } open ={ openModal } description = { description } />
           <h1>Reminders Page</h1>
         </div>
         <div className="reminderContainer">
