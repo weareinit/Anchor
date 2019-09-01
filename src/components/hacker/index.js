@@ -58,7 +58,7 @@ class Hacker extends Component{
     render(){
         const{firstName,lastName,email,schoolName, applicationStatus,dob,
               gender,github,linkedIn,graduationYear,levelOfStudy,major,needReimbursement,
-              race,shirtSize,phoneNumber,checkIn, howDidYouHear, reasonForAttending, resume, areaOfFocus, emailConfirmed, dietaryRestriction } = this.props.data;
+              race,shirtSize,phoneNumber,checkIn, howDidYouHear, reasonForAttending, resume, areaOfFocus, emailConfirmed, dietaryRestriction, emailConfirmationToken } = this.props.data;
 
         const { modalOpenConfirm, action } = this.state;
 
@@ -87,6 +87,7 @@ class Hacker extends Component{
                 >
                     <h1>{firstName} {lastName}</h1>
                     <p>• Email: {email}</p>
+                    <p>• Email Confirmation Token: { emailConfirmationToken }</p>
                     <p>• Email Verified? { emailConfirmed === true ? 'Yes' : 'No' }</p>
                     <p>• School: {schoolName}</p>
                     <p>• Major: {major}</p>
