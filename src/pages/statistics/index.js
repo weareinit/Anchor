@@ -5,6 +5,7 @@ import './style.css';
 import Navbar from '../../components/navbar';
 import Statistic from '../../components/statistic';
 import { Bar } from 'react-chartjs-2';
+import zoom from 'chartjs-plugin-zoom';
 
 import Admin from '../../services/admin';
 
@@ -30,7 +31,7 @@ class Statistics extends Component{
         const chartLabels = [];
         const chartData = [];
 
-        for(let i = 0; i < 5; i++){
+        for(let i = 0; i < 15; i++){
           const [school, data] = sortedSchools[i];
           chartLabels.push(school);
           chartData.push(data);
@@ -53,28 +54,29 @@ class Statistics extends Component{
               borderWidth: 1
           }]
       }
-
         return(
             statistics ?
             <div>
-                <Navbar />
-                <div className="statisticsOuter">
-                    <h1>Registration Statistics</h1>
-                </div>
-                <div className='statisticsContainer'>
-                    {statistics.map(stat => {
-                        return <Statistic name = {stat.key} value = {stat.value} />
-                    })}
-                </div>
-                <h2 style={{marginLeft: '5%'}}>Top Schools</h2>
-                <div className = 'chart'>
-                <Bar
-                    data={data}
-                    width={1}
-                    height={1}
-                    options={{ maintainAspectRatio: false }}
-                  />
-                </div>
+              <div>
+                  <Navbar />
+                  <div className="statisticsOuter">
+                      <h1>Registration Statistics</h1>
+                  </div>
+                  <div className='statisticsContainer'>
+                      {statistics.map(stat => {
+                          return <Statistic name = {stat.key} value = {stat.value} />
+                      })}
+                  </div>
+              </div>
+              <h2 style={{marginLeft: '5%'}}>Top Schools</h2>
+                  <div className = 'chart col-md-4'>
+                  <Bar
+                      data={data}
+                      width={4000}
+                      height={500}
+                      options={{ maintainAspectRatio: false, responsive:false }}
+                    />
+                  </div>
             </div>
             :
             <div className="statisticsOuter">
