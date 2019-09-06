@@ -6,6 +6,7 @@
     "axios": "^0.18.0",
     "canvasjs": "^1.8.1",
     "chart.js": "^2.8.0",
+    "chartjs-plugin-zoom": "^0.7.3",
     "dotenv": "^7.0.0",
     "jsonwebtoken": "^8.5.1",
     "react": "^16.8.6",
