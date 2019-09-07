@@ -1,4 +1,5 @@
 import React,{Component,Fragment} from 'react';
+import {  CSVDownload } from "react-csv";
 import ReactPaginate from 'react-paginate';
 
 import './style.css';
@@ -8,6 +9,9 @@ import Navbar from '../../components/navbar';
 import ConfirmModal from '../../components/confirmModal';
 
 import Admin from '../../services/admin';
+
+import getCSV from "../../utils/csvArr"
+import { get } from 'http';
 
 class Hackers extends Component{
     constructor(props){
@@ -22,10 +26,13 @@ class Hackers extends Component{
             count: null,
             filter: '',
             openModal: null,
-            shellIDs: null
+            shellIDs: null,
+            CSVArray:null,
+            gettingCSV: false
         }
     }
 
+    
     /**
      * Initially calls applicants service with page 0 and no query
      */
@@ -104,14 +111,42 @@ class Hackers extends Component{
         this.setState({filter:value});
     }
 
+
+    getDataAsync = async()=>{
+        this.setState({gettingCSV:true});
+
+        const data = await getCSV(this.applicants)
+
+        this.setState({CSVArray:data,gettingCSV:false});
+    }
+
     render(){
         const{applicants,overallPages,count,openModal,shellIDs} = this.state;
         const{history} = this.props;
-
+        this.getDataAsync()
         return(
             applicants ?
             <div>
                 <Navbar />
+                <div
+          style={{
+            width: "80%",
+            display: "flex",
+            justifyContent: "space-between"
+          }}
+        >
+            {this.state.gettingCSV?
+            <p>Processing CSV data</p>
+            :  
+            <CSVDownload
+            style={{ width: "40%", padding: "8%", background: "#A2977D" }}
+            data={this.state.CSVArray }
+            target="_blank"
+        >
+            Download Current Querrry CSV
+           </CSVDownload>
+            }
+                    </div>
                     <div className="hackerOuter">
                     <ConfirmModal close = {() => this.setState({openModal:false})} action={() => Admin.acceptHacker(shellIDs)} open ={openModal} description = {`accept all ${count} hackers`} />
                         <input 
