@@ -1,106 +1,122 @@
-.hackersContainer{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin-left: 5%;
+.hackersContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: 5%;
 }
-.hackerOuter{
-    padding-top:80px;
-}
-
-.hackerInput{
-    width:80%;
-    margin-left: 5%;
-    padding: .5em;
-    border-radius:10px;
-    border: none;
-    outline-style: none;
-    background-color: rgba(0, 0, 0, 0.5) !important;
-    font-family: "Montserrat", sans-serif;
-    font-size: 100%;
-    color: white;
-    font-weight: 500;
-    margin-top:15px;
+.hackerOuter {
+  padding-top: 80px;
 }
 
-.hackerInput::placeholder{
-    color:white
+.hackerInput {
+  width: 80%;
+  margin-left: 5%;
+  padding: 0.5em;
+  border-radius: 10px;
+  border: none;
+  outline-style: none;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  font-family: "Montserrat", sans-serif;
+  font-size: 100%;
+  color: white;
+  font-weight: 500;
+  margin-top: 15px;
 }
 
-.hackerOuter h2{
-    margin-left: 5%;
-    margin-top:20px;
+.hackerInput::placeholder {
+  color: white;
 }
 
-.allBtn{
-    border: none;
-    outline-style: none;
-    border-radius: 10px;
-    padding: 10px;
-    color: black;
-    font-weight: 900;
-    background-color: rgba(0, 0, 0, 0.3) !important;
-    font-size: 15px;
-    margin-left: 5%;
-    margin-bottom: 10px;
+.hackerOuter h2 {
+  margin-left: 5%;
+  margin-top: 20px;
 }
 
-.searchBtn{
-    border: none;
-    outline-style: none;
-    border-radius: 10px;
-    padding: 10px;
-    color: black;
-    font-weight: 900;
-    background-color: rgba(0, 0, 0, 0.3) !important;
-    font-size: 15px;
-    margin-left: 5%;
-    margin-right:10px;
-    margin-top: 10px;
+.allBtn {
+  border: none;
+  outline-style: none;
+  border-radius: 10px;
+  padding: 10px;
+  color: black;
+  font-weight: 900;
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  font-size: 15px;
+  margin-left: 5%;
+  margin-bottom: 10px;
 }
 
-#loading{
-    margin-left: 5%;
+.searchBtn {
+  border: none;
+  outline-style: none;
+  border-radius: 10px;
+  padding: 10px;
+  color: black;
+  font-weight: 900;
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  font-size: 15px;
+  margin-left: 5%;
+  margin-right: 10px;
+  margin-top: 10px;
 }
 
-.react-paginate{
-    margin-right:5%;
-    display: flex;
-    flex-wrap:wrap;
-    /* background-color: red; */
-    justify-content: center;
+#loading {
+  margin-left: 5%;
+}
+
+.react-paginate {
+  margin-right: 5%;
+  display: flex;
+  flex-wrap: wrap;
+  /* background-color: red; */
+  justify-content: center;
 }
 
 .react-paginate ul {
-    padding-left: 15px;
-    padding-right: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .react-paginate li {
-    border: 1px solid grey;
-    color: black;
-    display: inline-block;
-    padding: 8px 16px;
-    margin:2px;
-    text-decoration: none;
+  border: 1px solid grey;
+  color: black;
+  display: inline-block;
+  padding: 8px 16px;
+  margin: 2px;
+  text-decoration: none;
 }
 
 .react-paginate li.active {
-   background-color: grey;
+  background-color: grey;
 }
 
 .react-paginate li:hover {
-    background-color: lightgray;
- }
- .filters{
-    margin-left: 5%;
-    margin-top: 10px;
- }
+  background-color: lightgray;
+}
+.filters {
+  margin-left: 5%;
+  margin-top: 10px;
+}
 
- .toggle{
-    border: 0.1em solid #000;
-    border-radius: 0.2em;
-    margin-left: 5px;
-    width: .9em;
-    height: .9em;
- }
+.toggle {
+  border: 0.1em solid #000;
+  border-radius: 0.2em;
+  margin-left: 5px;
+  width: 0.9em;
+  height: 0.9em;
+}
+
+.csv-container {
+  display: inline-flex;
+  justify-content: space-between;
+}
+.csv-button {
+  text-align: center;
+  padding: 10px;
+  color: black;
+  font-weight: 900;
+  font-size: 15px;
+  margin: 10px;
+  text-decoration: none;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.3) !important;
+}
