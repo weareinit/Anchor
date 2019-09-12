@@ -170,6 +170,15 @@ class Hackers extends Component {
               />{" "}
               Confirmed
             </label>
+            <label>
+              <input
+                name="hackerFilter"
+                value="noReimbursement"
+                className="toggle"
+                type="radio"
+              />{" "}
+              No Reimbursement
+            </label>
           </div>
           <button onClick={this.hackerSearch} className="searchBtn">
             Search
