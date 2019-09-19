@@ -61,6 +61,30 @@ const logout = async (history) => {
 }
 
 /**
+ * Creates a new applicant in the database via walk in
+ * @param {Object} history -History prop from react router
+ * @param {string} firstName -First name of hacker
+ * @param {string} lastName -Last name of hacker
+ * @param {string} email -email of hacker
+ */
+const walkIn = async (firstName, lastName, email, history) => {
+  try {
+    const token = await verifyLogin(history);
+    const config = {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      },
+    }
+
+    await admin.post('/admin/walkIn', { firstName, lastName, email }, config);
+
+    alert('Walk in succesful');
+  } catch (e) {
+      console.log(e)
+  }
+}
+
+/**
  * Accepts a hacker based on email
  * @param {String} email - Hacker email
  * @param {Object} history - History prop from react router
@@ -175,7 +199,7 @@ const getStatistics = async (history) => {
 
         const { data } = await admin.get('/cabinet/statistics', config);
 
-        const { numApplicants, numConfirmed, numApplied, numNotApplied, numAccepted, numMales, numFemales, sortedSchools, numCantGo } = data.data
+        const { numApplicants, numConfirmed, numApplied, numNotApplied, numAccepted, numMales, numFemales, sortedSchools, numCantGo, numCheckIn, numWalkIn } = data.data
 
         let applicantsObj = makeObj("Registered", numApplicants)
         let confirmedObj = makeObj("Confirmed", numConfirmed);
@@ -185,8 +209,10 @@ const getStatistics = async (history) => {
         let malesObj = makeObj("Males", numMales);
         let femaleObj = makeObj("Females", numFemales);
         let cantGoObj = makeObj("Can't Go", numCantGo);
+        let walkInObj = makeObj('Walk-ins', numWalkIn);
+        let checkInObj = makeObj('Check-ins', numCheckIn);
 
-        let stats = [applicantsObj, confirmedObj, cantGoObj, appliedObj, notAppliedObj, acceptedObj, malesObj, femaleObj]
+        let stats = [walkInObj, checkInObj, applicantsObj, confirmedObj, cantGoObj, appliedObj, notAppliedObj, acceptedObj, malesObj, femaleObj]
 
         return {stats, sortedSchools};
 
@@ -293,4 +319,4 @@ const getPreReg = async (history) => {
     }
 }
 
-export default { acceptHacker, getApplicants, login, logout, checkIn, getStatistics, verifyLogin, sendNotifications, getPreReg, remindApply, remindConfirm, deleteOne };
+export default { acceptHacker, getApplicants, login, logout, checkIn, getStatistics, verifyLogin, sendNotifications, getPreReg, remindApply, remindConfirm, deleteOne, walkIn };

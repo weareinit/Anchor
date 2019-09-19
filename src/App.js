@@ -9,6 +9,7 @@ import Statistics from "./pages/statistics";
 import Reminders from "./pages/reminders";
 import Notifications from "./pages/notifications";
 import PreRegistration from "./pages/preReg";
+import WalkIn from './pages/walkIn';
 
 class App extends Component {
   render() {
@@ -20,6 +21,7 @@ class App extends Component {
         <Route exact path="/reminders" component={Reminders} />
         <Route exact path="/notifications" component={Notifications} />
         <Route exact path="/preregistration" component={PreRegistration} />
+        <Route exact path="/walkIn" component={WalkIn} />
       </Router>
     );
   }
