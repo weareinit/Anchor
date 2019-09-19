@@ -189,14 +189,14 @@ class Hackers extends Component {
               data={this.state.allApplicants}
               target="_blank"
             >
-              Download all Applicants
+              Download Query
             </CSVLink>
             <CSVLink
               className="csv-button"
               data={this.state.applicants}
               target="_blank"
             >
-              Download Querry
+              Download Page
             </CSVLink>
           </div>
           <h2>{count} Hackers Found</h2>
