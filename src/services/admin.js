@@ -3,7 +3,8 @@ import jwt from 'jsonwebtoken';
 
 import authFailure from '../utils/auth';
 
-const SERVER_URL = 'https://api.shellhacks.net';
+//const SERVER_URL = 'https://api.shellhacks.net';
+const SERVER_URL = 'http://localhost:3000';
 const PRE_REG_URL = 'https://us-central1-preregistration-fc98c.cloudfunctions.net/widgets';
 
 const admin = axios.create({ baseURL: SERVER_URL });
@@ -33,9 +34,9 @@ const verifyLogin = async (history) => {
 const login = async (password, history) => {
     try {
         let { data } = await admin.post('/token', { password });
-
+        
         const { token } = data.data;
-        console.log(token);
+
         localStorage.setItem("token", token);
 
         history.push('/hackers');
@@ -176,7 +177,7 @@ const getStatistics = async (history) => {
         const { data } = await admin.get('/cabinet/statistics', config);
 
         const { numApplicants, numConfirmed, numApplied, numNotApplied, numAccepted, numMales, numFemales, sortedSchools, numCantGo } = data.data
-        console.log(data.data);
+
         let applicantsObj = makeObj("Registered", numApplicants)
         let confirmedObj = makeObj("Confirmed", numConfirmed);
         let appliedObj = makeObj("Applied", numApplied);
@@ -212,7 +213,11 @@ const sendNotifications = async (title, body, data, history) => {
             },
         }
 
-        await admin.post('/admin/notification', { title, body, data }, config)
+        const date = new Date();
+        const { tag } = data
+
+        await admin.post('/admin/notification', { title, body, data }, config);
+        await admin.post('/admin/announcement', { title, body, tag, sentTime: date }, config);
 
         alert('notification sent');
 
