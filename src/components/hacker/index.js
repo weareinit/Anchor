@@ -58,7 +58,8 @@ class Hacker extends Component{
     render(){
         const{firstName,lastName,email,schoolName, applicationStatus,dob,
               gender,github,linkedIn,graduationYear,levelOfStudy,major,needReimbursement,
-              race,shirtSize,phoneNumber,checkIn, howDidYouHear, reasonForAttending, resume, areaOfFocus, emailConfirmed, dietaryRestriction, emailConfirmationToken } = this.props.data;
+              race,shirtSize,phoneNumber,checkIn, howDidYouHear, reasonForAttending, resume, 
+              areaOfFocus, emailConfirmed, dietaryRestriction, emailConfirmationToken, walkIn } = this.props.data;
 
         const { modalOpenConfirm, action } = this.state;
 
@@ -66,7 +67,8 @@ class Hacker extends Component{
         const {shellID} = data;
         const idArr = [shellID]
 
-        const acceptBtn = applicationStatus === 'accepted' ? null : <button onClick={this.accept} style={disabledStyle} className="acceptBtn">Accept</button>
+        const acceptBtn = applicationStatus !== 'applied' ? null : <button onClick={this.accept} style={disabledStyle} className="acceptBtn">Accept</button>
+        const checkInBtn = !checkIn && applicationStatus === 'confirmed' ? <button onClick={this.checkIn} className="acceptBtn">Check In</button> : null
         const func = action === 'accept' ? () => Admin.acceptHacker(idArr, history) : () => Admin.deleteOne(shellID, history);
 
         return(
@@ -76,8 +78,8 @@ class Hacker extends Component{
                 <p>• Email: {email}</p>
                 <p>• Application Status: {applicationStatus}</p>
                 <button onClick={this.openModal}>Info</button>
-                {acceptBtn}
-                <button onClick={this.checkIn} className="acceptBtn">Check In</button>
+                { acceptBtn }
+                { checkInBtn }
                 <button onClick={this.delete} className="acceptBtn">X</button>
                 <Modal 
                 isOpen = {this.state.modalOpen}
@@ -107,6 +109,7 @@ class Hacker extends Component{
                     <p>• How did you hear?: {howDidYouHear}</p>
                     <p>• Reason for attending?: {reasonForAttending}</p>
                     <p>• Dietary Restrictions?: { dietaryRestriction }</p>
+                    <p>• Walk In: {walkIn ? 'Yes' : 'No'}</p>
                 </Modal>
             </div>
         );
