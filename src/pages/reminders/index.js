@@ -23,16 +23,10 @@ class Reminders extends Component{
     await Admin.verifyLogin(history);
   }
 
-  handleRemindApply = () => {
-    const description = "send a reminder to apply to all registered";
-    const choice = "apply"
-    this.setState({openModal: true, description, choice});
-  }
+  handleClick = async () => {
+    const { history } = this.props;
 
-  handleRemindConfirm = () => {
-    const description = "send a reminder to confirm to all accepted";
-    const choice = "confirm"
-    this.setState({openModal: true, description, choice});
+    await Admin.updateCalendar(history);
   }
 
   render(){
@@ -46,16 +40,12 @@ class Reminders extends Component{
         <NavBar />
         <div className="reminderOuter">
         <ConfirmModal close = { () => this.setState({ openModal:false }) } action={ func } open ={ openModal } description = { description } />
-          <h1>Reminders Page</h1>
+          <h1>Schedule Page</h1>
         </div>
         <div className="reminderContainer">
           <div className="reminder">
-            <button  onClick = {this.handleRemindApply} className="remindBtn">Remind Apply</button> <br />
-            <p>This will send an email to everyone who has not applied reminding to them to apply</p>
-          </div>
-          <div className="reminder">
-            <button onClick = {this.handleRemindConfirm} className="remindBtn">Remind Confirm</button> <br />
-            <p>This will send an email to everyone who has not confirmed reminding to them to confirm</p>
+            <button onClick = {this.handleClick} className="remindBtn">Update Schedule</button> <br />
+            <p>This will update the calendar</p>
           </div>
         </div>
       </div>
