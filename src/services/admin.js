@@ -67,7 +67,7 @@ const logout = async (history) => {
  * @param {string} lastName -Last name of hacker
  * @param {string} email -email of hacker
  */
-const walkIn = async (firstName, lastName, email, history) => {
+const walkIn = async (firstName, lastName, email, password, history) => {
   try {
     const token = await verifyLogin(history);
     const config = {
@@ -76,7 +76,7 @@ const walkIn = async (firstName, lastName, email, history) => {
       },
     }
 
-    await admin.post('/admin/walkIn', { firstName, lastName, email }, config);
+    await admin.post('/admin/walkIn', { firstName, lastName, email, password }, config);
 
     alert('Walk in succesful');
   } catch (e) {

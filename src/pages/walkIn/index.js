@@ -10,7 +10,9 @@ class WalkIn extends Component{
     this.state = {
       firstName: null,
       lastName: null,
-      email: null
+      email: null,
+      password: null,
+      confirmPassword: null
     }
   }
 
@@ -23,18 +25,22 @@ class WalkIn extends Component{
   }
 
   handleClick = async () => {
-    const{ firstName, lastName, email } = this.state;
+    const{ firstName, lastName, email, password, confirmPassword } = this.state;
     const { history } = this.props;
 
     console.log(this.state);
 
   try{
-    if(!email || !lastName || !firstName)
-      throw('Please fill out rest of form')
+    if(!email || !lastName || !firstName || !password || !confirmPassword)
+      throw('Please fill out rest of form');
 
-      await Admin.walkIn(firstName,lastName,email,history);
+      if(password !== confirmPassword){
+        throw('Password do not match');
+      }
+
+      await Admin.walkIn(firstName,lastName,email, password, history);
   }catch(e){
-      console.log(e);
+      alert(e);
   }
 }
 
@@ -57,6 +63,14 @@ class WalkIn extends Component{
               <div className="notification">
                   <h2>Email</h2>
                   <input onChange={this.handleInputChange('email')} type="text" />
+              </div>
+              <div className="notification">
+                  <h2>Password</h2>
+                  <input onChange={this.handleInputChange('password')} type="password" />
+              </div>
+              <div className="notification">
+                  <h2>Confirm Password</h2>
+                  <input onChange={this.handleInputChange('confirmPassword')} type="password" />
               </div>
               <button onClick={this.handleClick} id="notificationBtn">Walk In Hacker</button>
           </div>     
