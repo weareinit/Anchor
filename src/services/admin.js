@@ -143,7 +143,7 @@ const checkIn = async (shellID, history) => {
             },
         }
 
-        await admin.put("/admin/checkIn", { shellID }, config);
+        await admin.put("/admin/hacker_checkIn", { shellID }, config);
 
         alert('Checked in hacker');
     } catch (e) {
