@@ -297,6 +297,31 @@ const remindConfirm = async (history) => {
 }
 
 /**
+ * sends reminder emails to all hackers who have not confirmed yet
+ * 
+ * @param {Object} history history prop from react-router
+ */
+const updateCalendar = async (history) => {
+  try{
+    console.log('trying')
+    const token = await verifyLogin(history);
+    console.log(token);
+
+    const config = {
+      headers: {
+          'Authorization': 'Bearer ' + token
+      },
+    }
+
+    await admin.put('/admin/update_events', config);
+    alert('Calendar updated!');
+
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+/**
  * Creates new axios with @PRE_REG_URL
  * return pre-registration database snapshot
  */
@@ -319,4 +344,4 @@ const getPreReg = async (history) => {
     }
 }
 
-export default { acceptHacker, getApplicants, login, logout, checkIn, getStatistics, verifyLogin, sendNotifications, getPreReg, remindApply, remindConfirm, deleteOne, walkIn };
+export default { acceptHacker, getApplicants, login, logout, checkIn, getStatistics, verifyLogin, sendNotifications, getPreReg, remindApply, remindConfirm, deleteOne, walkIn, updateCalendar };
