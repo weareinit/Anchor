@@ -38,6 +38,10 @@ class WalkIn extends Component{
         throw('Password do not match');
       }
 
+      if(password.length < 6){
+        throw('Password too short');
+      }
+
       await Admin.walkIn(firstName,lastName,email, password, history);
   }catch(e){
       alert(e);
