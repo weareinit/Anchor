@@ -79,7 +79,7 @@ class Hacker extends Component{
                 <p>• Application Status: {applicationStatus}</p>
                 <button onClick={this.openModal}>Info</button>
                 { acceptBtn }
-                { checkInBtn }
+                <button onClick={this.checkIn} className="acceptBtn">Check In</button>
                 <button onClick={this.delete} className="acceptBtn">X</button>
                 <Modal 
                 isOpen = {this.state.modalOpen}
